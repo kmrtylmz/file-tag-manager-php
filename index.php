@@ -1,123 +1,41 @@
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-	<meta charset="UTF-8">
-	<title>Training</title>
-	   <link rel = "icon" href =  
-"https://media.geeksforgeeks.org/wp-content/cdn-uploads/gfg_200X200.png" 
-        type = "image/x-icon"> 
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+<?php 
+require "vendor/autoload.php";
 
-</head>
+use App\Router;
+//ob_start()
 
-<style>
-	body {
-		background-color: #2C3A49;
-		
-	}
-	.custom-file-input ~ .custom-file-label::after {
-    content: "Select File";
-	}
-	.custom-file-label , input[file="text"] {
-		border-radius: 0!important;
-	}
-	table {
-		position: relative;
-	}
-	table tbody {
-	  border-bottom: 75px solid white;
-	}
-	.form-control:focus , .form-control:hover {
-			border-color:initial;
-			outline: 0;
-			box-shadow: initial;
-	}
+Router::run('/', "HardLinkController@create");
 
-	tr:nth-child(even) , th {
-		background-color: #F9F9F9;
-		color:grey;
-	}
-	td:nth-child(2) {
-		font-style: italic;
-	}
-	tbody::after{
-			position: absolute;
-			right:25px;
-			bottom: -15px;
-			font-weight: bolder;
-			content: "Total Count : <? echo $a=1; ?>";
-	}
+Router::run('/ad' , 'HardLinkController@create', 'post|get');
 
-</style>
-<body>
-	<div class="container-fluid ">
-	<div class="row">
-			<form action="<?php echo $_SERVER['PHP_SELF']; ?>" class="mt-4"  method="POST">
-				 <div class="form-row pl-3">
-					<div class="custom-file col-9 ">
 
-							      <div class="input-group">
-							        <div class="input-group-prepend">
-							          <span class="input-group-text">/</span>
-							        </div>
-							        <input type="text" class="form-control" id="path" name="path" placeholder="Paste File Path" required>
-					
-							      </div>
-			<!-- 		  <input type="file" class="custom-file-input bg-info " id="customFile" >
-					  <label class="custom-file-label" for="customFile">File Name..</label> -->
-					</div>
-					<div class="col-2">
-						    <input type="text" name="tag" class="form-control" id="tag" placeholder="#tag" required>
-					</div>
-
-		<div class="col-1 ">
-	
-				<button type="submit"  class=" pl-5 pr-5 btn btn-danger">Ready</button>
-			</div>	
-				</div>	
-		</form>
-		</div>
+Router::run('/uye' , 'HardLinkController@create', 'post|get');
 
 
 
-		<div class="row">
-			<div class="col">
-				<div class="progress mt-4">
-				  <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-				  </div>
-				</div>
-			</div>
-		</div>
-		
-		<div class="row justify-content-start mt-5">
-			<div class="col-4 input-group input-group-sm mt-5">
-			   <input type="text" class="form-control" placeholder="Enter #tag " name="search" id="search" aria-label="Enter Tag Name" aria-describedby="basic-addon2" x-webkit-speech>
-			  <div class="input-group-append">
-			    <button class="btn btn-danger " type="button"><i class="fas fa-search"></i></button>
-			  </div>
-			</div>
-		</div>
+ 	 		/*if($_POST) {
 
-		
+ 				extract($_POST);
+ 				$a = new HardLink($path , $tag);
 
-<div class="row  p-3">
-	<div class="table-responsive-xl">
-	<table class="table  table-light mt-3 table-sm">
-  <thead>
-    <tr>
-      <th scope="col-1">Open </th>
-      <th scope="col-7">File Path</th>
-      <th scope="col-2">Type</th>
-      <th scope="col-1">Size</th>
-      <th scope="col-1">Delete</th>
-    </tr>
-  </thead>
-  <tbody>
- 
-  
- 	<?php 
+ 				if($a->checkType()->checkPathAndBool())
+ 				{
+ 					$a->createHardLink();//True
 
+ 					$db = new TagTable();
+
+ 				    echo $db->createTag($a->path , $a->tag) == true ? $db->kill() : false;
+
+
+ 				}
+ 				else {
+ 						echo $a->findHardLinkPath();
+ 						
+ 				}
+				clearstatcache();	
+ 			}
+ 			*/
+/*
  	trait config  { 
  			
  				protected $sqlitePath = 'database/taglog.db';
@@ -160,7 +78,7 @@
  					$qq = $this->db->prepare('INSERT INTO taglist (tag , filename) VALUES ( ? , ? )');
 
  					$qq->execute([
- 							$tag , 
+ 							$tag, 
  							$path
  					]);
 
@@ -287,29 +205,8 @@
  				//	clearstatcache();
 
 
- 	}
- 		if($_POST) {
+ 	} */
 
- 				extract($_POST);
- 				$a = new HardLink($path , $tag);
-
-
- 				if($a->checkType()->checkPathAndBool())
- 				{
- 					$a->createHardLink();//True
-
- 					$db = new TagTable();
-
- 				    echo $db->createTag($a->path , $a->tag) == true ? $db->kill() : false;
-
-
- 				}
- 				else {
- 						echo $a->findHardLinkPath();
- 						
- 				}
-				clearstatcache();	
- 			
  		
 
 				/*if(is_file($path) || is_executable($path) || is_readable($path)) {
@@ -364,78 +261,24 @@
 
 		
 
- 			//shell_exec("ln" .$path. "{$_ENV['HOMEDRIVE']}\keywords\\".$keyword);
+ 			//shell_exec("ln" .$path. "{$_ENV['HOMEDRIVE']}\keywords\\".$keyword); // hardlink olusturur.
 
-
-
- 			/* readlink -f "abc.txt"
+ 			/* readlink -f "abc.txt"  // olusan hardlinkin pathi alınır.
 				/c/abc.txt
 
-				ls -i /c/abc.txt
-				24488322973942798 /c/abc.txt
+				ls -i /c/abc.txt       // pathine göre inode numarası listelenir.
+				24488322973942798 /c/abc.txt  // gelen deger parse
 
 
-				find ./ -inum 2533274790487458 | head -n2
+				find ./ -inum 2533274790487458 | head -n2  // dosyalarda inode göre aranır.
 				./abc.txt
 				./bb/mert.txt
 				}
 */
- 		}
+ 		
 
  	//print_r($_ENV);?>
  
- <tr>
- 	<td><img src="images/filem.ico" alt=""></td>
- 	<td>C:\xampp\htdocs\phpdesktop-chrome-57.0-rc-php-7.1.3C:\xampp\htdocs\phpdesktop-chrome-57.0-rc-php-7.1.3</td>
- 	<td>2</td>
- 	<td>3</td>
- 	<td><img src="images/delete.ico" alt=""></td>
- </tr>
- <tr>
- 	<td><img src="images/filem.ico" alt=""></td>
- 	<td>C:\xampp\htdocs\phpdesktop-chrome-57.0-rc-php-7.1.3</td>
- 	<td>2</td>
- 	<td>3</td>
- 	<td><img src="images/delete.ico" alt=""></td>
-
- </tr>
-  <tr>
- 	<td><img src="images/filem.ico" alt=""></td>
- 	<td>C:\Riot Games\Riot Client\RiotClientServices.exe</td>
- 	<td>2</td>
- 	<td>3</td>
- 	<td><img src="images/delete.ico" alt=""></td>
-
- </tr>
-
-  </tbody>
-</table>
-</div>
-</div>
-
-<div class="fixed-bottom text-right p-1 bg-light">
-	Copyright @ <?=date('Y') ?>
-</div>
-
-</div>
-
-</body>
-</html>
-
-
-
-        <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-		<script>
-
-			$("input[type='text']").on("change" , function(e){
-				$(".progress-bar").width("50%");               
-			});
-	
- 			
-	
-      
-        </script>	
-
 
 
 

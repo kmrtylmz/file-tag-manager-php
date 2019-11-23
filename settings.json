@@ -12,8 +12,8 @@
     "main_window": {
         "title": "File Tag App",
         "icon": "file.ico",
-        "default_size": [800, 640],
-        "minimum_size": [800, 640],
+        "default_size": [974, 640],
+        "minimum_size": [974, 640],
         "maximum_size": [0, 0],
         "disable_maximize_button": true,
         "center_on_screen": true,
@@ -36,7 +36,8 @@
         "cgi_interpreter": "php/php-cgi.exe",
         "cgi_extensions": ["php"],
         "cgi_temp_dir": "",
-        "404_handler": "/pretty-urls.php",
+        "_comment" : "Mongoose Rewrite Rule 404 -> index.php :)",
+        "404_handler": "/index.php", 
         "hide_files": []
     },
     "chrome": {

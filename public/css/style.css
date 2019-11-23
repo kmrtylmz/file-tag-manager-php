@@ -1,0 +1,170 @@
+@import url('https://fonts.googleapis.com/css?family=Quicksand:700');
+
+/*@font-face {
+      font-family: 'fontello';
+      src: url('/public/css/font/fontello.eot?45182609');
+      src: url('/public/css/font/fontello.eot?45182609#iefix') format('embedded-opentype'),
+           url('/public/css/font/fontello.woff?45182609') format('woff'),
+           url('/public/css/font/fontello.ttf?45182609') format('truetype'),
+           url('/public/css/font/fontello.svg?45182609#fontello') format('svg');
+      font-weight: normal;
+      font-style: normal;
+    }*/
+
+
+     
+
+body {
+		background-color: #fafbfd;
+		font-family: 'Quicksand', sans-serif;
+		font-weight: 700;
+		
+		
+	}
+.btn-green { 
+  color: #FFFFFF; 
+  background-color: #18E06F; 
+  border-color: #18E06F; 
+} 
+
+.badge:hover {
+    transition: box-shadow 0.45s;
+    box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.close  {
+	font-size:13px!important;
+	margin-left: 6px;
+	color:#fafbfd;
+}
+.notfound a {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 13px;
+  text-decoration: none;
+  text-transform: uppercase;
+  background: #18e06f;
+  display: inline-block;
+  padding: 15px 30px;
+  border-radius: 5px;
+  color: #fff;
+  font-weight: 700;
+  margin-top: 20px;
+}
+
+
+.notfound-social>a {
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    width: 30px;
+    font-size: 15px;
+    color: #fff;
+    background-color: #dedede;
+    /* margin: 2px; */
+    padding: 0px;
+    -webkit-transition: 0.2s all;
+    transition: 0.2s all;
+}
+.notfound-social>a:hover {
+  background-color: #18e06f;
+}
+ 
+.btn-green:hover, 
+.btn-green:focus, 
+.btn-green:active, 
+.btn-green.active, 
+.open .dropdown-toggle.btn-green { 
+  color: #FFFFFF; 
+  background-color: #16E36F; 
+  border-color: #18E06F; 
+} 
+ 
+.btn-green:active, 
+.btn-green.active, 
+.open .dropdown-toggle.btn-green { 
+  background-image: none; 
+} 
+ 
+.btn-green.disabled, 
+.btn-green[disabled], 
+fieldset[disabled] .btn-green, 
+.btn-green.disabled:hover, 
+.btn-green[disabled]:hover, 
+fieldset[disabled] .btn-green:hover, 
+.btn-green.disabled:focus, 
+.btn-green[disabled]:focus, 
+fieldset[disabled] .btn-green:focus, 
+.btn-green.disabled:active, 
+.btn-green[disabled]:active, 
+fieldset[disabled] .btn-green:active, 
+.btn-green.disabled.active, 
+.btn-green[disabled].active, 
+fieldset[disabled] .btn-green.active { 
+  background-color: #18E06F; 
+  border-color: #18E06F; 
+} 
+ 
+.btn-green .badge { 
+  color: #18E06F; 
+  background-color: #FFFFFF; 
+}
+	.custom-file-input ~ .custom-file-label::after {
+    content: "Select File";
+	}
+	.custom-file-label , input[file="text"] {
+		border-radius: 0!important;
+	}
+
+		.my-custom-scrollbar {
+		position: relative;
+		height: 100px;
+		overflow: auto;
+		width:100%;
+		}
+		.table-wrapper-scroll-y {
+		display: block;
+
+		}
+		.my-custom-scrollbart {
+		position: relative;
+		height: 200px;
+		overflow: auto;
+		width:100%;
+		}
+
+	.form-control:focus , .form-control:hover {
+			border-color:initial;
+			outline: 0;
+			box-shadow: initial;
+	}
+	table , thead {
+		width:100%;
+	}
+	tr {
+		white-space: nowrap;
+	}
+
+	/*
+	tr:nth-child(even) , th {
+		background-color: #F9F9F9;
+		color:grey;
+	}*/
+	td:nth-child(2) {
+		font-style: italic;
+	}
+	.bg-gg {
+		background-color: #dee2e6;
+	}
+/*
+	table tbody {
+	  border-bottom: 75px solid white;
+	}
+	tbody::after{
+			position: absolute;
+			right:25px;
+			bottom: -15px;
+			font-weight: bolder;
+			content: "Total Count : <? echo $a=1; ?>";
+	}
+	*/

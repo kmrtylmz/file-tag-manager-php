@@ -1,0 +1,23 @@
+{
+    "name": "hardlink/hardlink",
+    "description": "Exe formatında çalışmak",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mert Yılmaz",
+            "email": "k.mrtylmz2@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+
+    },
+    "autoload": {
+        "psr-4": 
+            {
+                "App\\": "app",
+                "Abs\\": "app/classes"
+            }
+    }
+}

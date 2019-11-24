@@ -23,9 +23,8 @@ class HardLinkController extends baseController {
 
 		public function search($tags) {
 
-			$arr = $this->Obj->getSearch($tags["search"]); // Request key);
 
-			echo json_encode($arr);
+			print_r($this->Obj->getSearch($tags["search"]));
 
 		}
 

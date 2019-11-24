@@ -97,7 +97,7 @@ namespace App\model;
 
  			public function getSearch($tagName) { 
 
- 				  $qq =$this->db->prepare('SELECT * FROM filelist f INNER JOIN taglist t ON  f.id=t.id WHERE t.tag = :name ');
+ 				  $qq =$this->db->prepare('SELECT * FROM filelist  INNER JOIN taglist  ON  filelist.id=taglist.id WHERE taglist.tag = ?');
 
  				  $qq->execute([
  				  			'name' => $tagName

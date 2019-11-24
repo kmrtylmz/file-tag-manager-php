@@ -21,16 +21,16 @@
 							        <div class="input-group-prepend">
 							          <span class="input-group-text">/</span>
 							        </div>
-							        <input type="text" class="form-control" id="path" name="path" placeholder="Paste File Path" required>
+							        <input type="text" class="form-control creator" id="path" name="path" placeholder="Paste File Path" required">
 							      </div>
 					</div>
 					<div class="col-2">
-						    <input type="text" name="tag" class="form-control" id="tag" placeholder="#tag" required>
+						    <input type="text" name="tag" class="form-control creator kenter" id="tag" placeholder="#tag" required>
 					</div>
 
 					<div class="col-1 ">
 	
-				<button type="submit"  class=" pl-5 pr-5 btn btn-green">Ready</button>
+				<button type="submit"  class=" pl-5 pr-5 btn btn-green" id="Ready">Ready</button>
 				
 					</div>	
 				</div>	
@@ -86,7 +86,7 @@
 
 		<div class="row justify-content-end ">
 			<div class="col-4 input-group input-group-sm mt-4">
-			   <input type="text" class="form-control" placeholder="For Search.." name="search"  aria-label="Enter Tag Name" aria-describedby="basic-addon2" x-webkit-speech>
+			   <input type="text" class="form-control kenter" placeholder="For Search.." name="search"  aria-label="Enter Tag Name" aria-describedby="basic-addon2" x-webkit-speech>
 			  <div class="input-group-append">
 			    <button class="btn btn-green" id="search" type="button"><i class="fas fa-search"></i></button>
 			  </div>
@@ -177,22 +177,58 @@
 
 
 <script src="/public/js/jquery-3.4.1.min.js"></script>
-
+		
 		<script>
 
 
-			$("input[type='text']").on("change" , function(e){
-				$(".progress-bar").width("50%");               
+		$("input[type='text'].creator").on("change" , function(e){
+
+			var name = e.target.name;
+			var $proc = $(".progress");
+			var $procbar = $(".progress-bar");
+			var currentWidth = ($proc.width()*0.25);
+
+			if($("input[name=" + e.target.name + "").val().length !== 0){
+				if(name === "path") {
+				$procbar.animate( { width : "+="+(currentWidth*2)+"px" } , 200 );
+				}
+				else {
+				$procbar.animate( { width : "+="+currentWidth+"px" } , 200 );
+				}
+			}
+			
+			else {
+					if(name === "path")  {
+					$procbar.animate( { width : "-="+(currentWidth*2)+"px" } , 200 );
+					}
+					else{
+						$procbar.animate( { width : "-="+currentWidth+"px" } , 200 );
+					}
+				}	           
 			});
 	
       
         </script>	
 
         <script>
+        		 $(".kenter").keypress(function(event) {
+					    var keycode = event.keyCode || event.which;
+					    if(keycode == '13') {
+					    	if(event.target.id !== "Ready")
+					          $("#search").click();
+					          else {
+								$("#Ready").click();
+					          }
+					    }
+					    
+					});
+        </script>
+
+        <script>
         	$( "#search" ).on("click", function(event) {
 				var search = $("input[name='search']").val();
         		$.post('/search' , { search : search } ).done(function(data) {
-
+//
         					//var dat = $.parseJSON(data);
 
         					console.log(data)

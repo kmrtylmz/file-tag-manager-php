@@ -4,14 +4,18 @@ require "vendor/autoload.php";
 use App\Router;
 //ob_start()
 
-Router::run('/', "HardLinkController@create");
-
-Router::run('/ad' , 'HardLinkController@create', 'post|get');
 
 
-Router::run('/uye' , 'HardLinkController@create', 'post|get');
+Router::run('/', "HardLinkController@show");
 
+Router::run('/create' , 'HardLinkController@create', 'post');
 
+Router::run('/search' , 'HardLinkController@search', 'post');
+
+/*
+Router::run('/?success' , function($name ) {
+		echo "işlem başarılı oldu ama yönlendirme problem";
+});
 
  	 		/*if($_POST) {
 

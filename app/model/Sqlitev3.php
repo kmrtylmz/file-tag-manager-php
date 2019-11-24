@@ -1,5 +1,6 @@
 <?php 
 namespace App\model;
+use App\config;
 
  	class Sqlitev3 {
 

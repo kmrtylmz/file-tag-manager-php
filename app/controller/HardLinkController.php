@@ -6,39 +6,77 @@ use Abs\base\baseController;
 
 class HardLinkController extends baseController {
 
+		private $Obj;
+
 		public function __construct(...$arg) 
 		{
-				//
+				$this->Obj = $this->model('TagTable');
+		}
+
+		public function show () { 
+			
+				$arrTags = $this->Obj->getAllTag();
+				$this->Obj->kill();
+
+				$this->view('index' , $arrTags);
+		}
+
+		public function search($tags) {
+
+			$arr = $this->Obj->getSearch($tags["search"]); // Request key);
+
+			echo json_encode($arr);
+
 		}
 
 
-		public function create($arr) {
+		public function create($arr) {	// Arg
 
-				extract($arr);
-
-				$path = "C:\Riot Games\Riot Client\RiotClientServices.exe";
-
-				$tag = "lol";	
+				extract($arr);								
+				$path = str_replace('"' , null , $path);
 
  				$a = new HardLink($path , $tag);
+			
+ 				 if($a->checkType())
+ 				 {	
 
- 				 if($a->checkType()->checkPathAndBool())
- 				 {
- 				 	$a->createHardLink();//True
+ 				 	if($a->checkPathAndBool()) {
+						$mime = $a->_mime_content_type($path);
+						$filesize = filesize($path). 'bytes';
 
- 				 	//$db = new TagTable();
+ 				 		if($a->createHardLink()) { //True
 
- 				     echo $db->createTag($a->path , $a->tag) == true ? $db->kill() : false;
+ 				 			$db =$this->Obj->createTag($a->path , $a->tag , $mime , $filesize);
+ 				 				if($db){
+ 				 				$this->Obj->kill();
+ 				 				header('Location:/?success');
+ 				 				} 
+ 				 				else {
+ 				 				header('Location:/?fail');
+ 				 				}
+ 				 				
+ 				 				// $this->view('index' , compact("check"));
+ 				 			
+ 				 		   }
 
+ 				 		else {
+ 				 			echo "False.. Not Create Tag.";
+ 				 		}
+
+					}
+
+					else {
+
+						$paths =  $a->findHardLinkPath();
+
+ 						$this->view("index", compact($paths));
+					}
 
  				 }
  				 else {
- 						$paths =  $a->findHardLinkPath();
+ 						header("Location:/?wpath");
+ 				}		
+			}
 
- 						$this->view("index", compact($paths));
- 						
- 				}
-				
-		}
 
 }

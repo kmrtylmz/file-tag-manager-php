@@ -41,15 +41,15 @@ class HardLink {
 
  				public function checkType() {
 
- 						if(is_file($this->path) || is_executable($this->path) || is_readable($this->path)) {
+ 						if(is_file($this->path) || is_executable($this->path) || is_readable($this->path) || is_writable($this->path)) {
 
- 								return $this;
+ 								return true;
 
  						}
 
  						else
  						{ 
- 								return 1;
+ 								return false;
  						}
  				}
 
@@ -76,5 +76,14 @@ class HardLink {
 						return implode("" , $originalpath);
  				}
 
+ 			 	function _mime_content_type($filename) {
+						$finfo = finfo_open(FILEINFO_MIME_TYPE);
+				        $mimeType = finfo_file($finfo, $filename);
+				        finfo_close($finfo);
+
+				        return $mimeType;
+
+
+			 }
 
  	}

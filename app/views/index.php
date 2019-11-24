@@ -14,10 +14,9 @@
 <body>
 	<div class="container-fluid">
 	<div class="row">
-			<form action="/ab" class="mt-4"  method="POST">
+			<form action="/create" class="mt-4"  method="POST">
 				 <div class="form-row pl-3">
-					<div class="custom-file col-9 ">
-
+					<div class="custom-file col-9">
 							      <div class="input-group">
 							        <div class="input-group-prepend">
 							          <span class="input-group-text">/</span>
@@ -53,52 +52,28 @@
 				<p class="text-secondary"><u> Your Tags :</u></p>
 	<div class="table-wrapper-scroll-y my-custom-scrollbar" style="border:1px solid #ccc;">
 				<div class="d-flex flex-wrap mt-2">
-  <div class="p-2"><a href="#" class="badge badge-secondary p-2">asd <button type="button" class="close" aria-label="Close">
-  <span aria-hidden="true">&times;</span>
-</button></a></div>  <div class="p-2"><a href="#" class="badge badge-secondary p-2">Secasadasondary <button type="button" class="close" aria-label="Close">
-  <span aria-hidden="true">&times;</span>
-</button></a></div>  <div class="p-2"><a href="#" class="badge badge-secondary p-2">Secondary <button type="button" class="close" aria-label="Close">
-  <span aria-hidden="true">&times;</span>
-</button></a></div>  <div class="p-2"><a href="#" class="badge badge-secondary p-2">Secondary <button type="button" class="close" aria-label="Close">
-  <span aria-hidden="true">&times;</span>
-</button></a></div>  <div class="p-2"><a href="#" class="badge badge-secondary p-2">Secondary <button type="button" class="close" aria-label="Close">
-  <span aria-hidden="true">&times;</span>
-</button></a></div>  <div class="p-2"><a href="#" class="badge badge-secondary p-2">Secondary <button type="button" class="close" aria-label="Close">
-  <span aria-hidden="true">&times;</span>
-</button></a></div>
- <div class="p-2"><a href="#" class="badge badge-secondary p-2">Secondary <button type="button" class="close" aria-label="Close">
-  <span aria-hidden="true">&times;</span>
-</button></a></div> <div class="p-2"><a href="#" class="badge badge-secondary p-2">Secondary <button type="button" class="close" aria-label="Close">
-  <span aria-hidden="true">&times;</span>
-</button></a></div> <div class="p-2"><a href="#" class="badge badge-secondary p-2">Secondary <button type="button" class="close" aria-label="Close">
-  <span aria-hidden="true">&times;</span>
-</button></a></div> <div class="p-2"><a href="#" class="badge badge-secondary p-2">Secondary <button type="button" class="close" aria-label="Close">
-  <span aria-hidden="true">&times;</span>
-</button></a></div>
-<div class="p-2"><a href="#" class="badge badge-secondary p-2">asd <button type="button" class="close" aria-label="Close">
-  <span aria-hidden="true">&times;</span>
-</button></a></div>  <div class="p-2"><a href="#" class="badge badge-secondary p-2">Secasadasondary <button type="button" class="close" aria-label="Close">
-  <span aria-hidden="true">&times;</span>
-</button></a></div>  <div class="p-2"><a href="#" class="badge badge-secondary p-2">Secondary <button type="button" class="close" aria-label="Close">
-  <span aria-hidden="true">&times;</span>
-</button></a></div>  <div class="p-2"><a href="#" class="badge badge-secondary p-2">Secondary <button type="button" class="close" aria-label="Close">
-  <span aria-hidden="true">&times;</span>
-</button></a></div>  <div class="p-2"><a href="#" class="badge badge-secondary p-2">Secondary <button type="button" class="close" aria-label="Close">
-  <span aria-hidden="true">&times;</span>
-</button></a></div>  <div class="p-2"><a href="#" class="badge badge-secondary p-2">Secondary <button type="button" class="close" aria-label="Close">
-  <span aria-hidden="true">&times;</span>
-</button></a></div>
- <div class="p-2"><a href="#" class="badge badge-secondary p-2">Secondary <button type="button" class="close" aria-label="Close">
-  <span aria-hidden="true">&times;</span>
-</button></a></div> <div class="p-2"><a href="#" class="badge badge-secondary p-2">Secondary <button type="button" class="close" aria-label="Close">
-  <span aria-hidden="true">&times;</span>
-</button></a></div> <div class="p-2"><a href="#" class="badge badge-secondary p-2">Secondary <button type="button" class="close" aria-label="Close">
-  <span aria-hidden="true">&times;</span>
-</button></a></div> <div class="p-2"><a href="#" class="badge badge-secondary p-2">Secondary <button type="button" class="close" aria-label="Close">
-  <span aria-hidden="true">&times;</span>
-</button></a></div>
+						
+						<?php if (isset($arg))
+						//print_r($arg);
+							$arrTags = array_column($arg, "tag");
+						 { foreach ($arrTags as $key => $value) { ?>
 
-<div class="p-2"><a href="#" class="badge badge-warning p-2 "> <u>Get More..</u> </a></div>
+									<div class="p-2">
+  									<a href="#" class="badge badge-secondary p-2">
+
+  									<?= $value ?>
+  									 <button type="button" class="close" aria-label="Close">
+	 								 <span aria-hidden="true">&times;</span>
+									</button>
+									</a>
+								</div>  
+						<?php 	} } ?>
+						
+						
+  						
+
+
+					<div class="p-2"><a href="#" class="badge badge-warning p-2 "> <u>Get More..</u> </a></div>
 </div>
 			</div>
 
@@ -111,9 +86,9 @@
 
 		<div class="row justify-content-end ">
 			<div class="col-4 input-group input-group-sm mt-4">
-			   <input type="text" class="form-control" placeholder="For Search.." name="search" id="search" aria-label="Enter Tag Name" aria-describedby="basic-addon2" x-webkit-speech>
+			   <input type="text" class="form-control" placeholder="For Search.." name="search"  aria-label="Enter Tag Name" aria-describedby="basic-addon2" x-webkit-speech>
 			  <div class="input-group-append">
-			    <button class="btn btn-green " type="button"><i class="fas fa-search"></i></button>
+			    <button class="btn btn-green" id="search" type="button"><i class="fas fa-search"></i></button>
 			  </div>
 			</div>
 		</div>
@@ -201,7 +176,7 @@
 
 
 
-<script src="/public/js/jquery-3.1.1.slim.min.js"></script>
+<script src="/public/js/jquery-3.4.1.min.js"></script>
 
 		<script>
 
@@ -210,10 +185,35 @@
 				$(".progress-bar").width("50%");               
 			});
 	
- 			
-	
       
         </script>	
+
+        <script>
+        	$( "#search" ).on("click", function(event) {
+				var search = $("input[name='search']").val();
+        		$.post('/search' , { search : search } ).done(function(data) {
+
+        					//var dat = $.parseJSON(data);
+
+        					console.log(data)
+        					//$("tbody").append()
+        		});
+
+			});
+        </script>
+
+        <?php 
+
+        	if(isset($_GET['success'])) {
+        		echo "<script> alert('Created ! Perfect '); </script>";
+        	}
+         	if(isset($_GET['fail'])) {
+         		echo "<script> alert('Not Create Tag.');</script>";
+         	}
+         	   	if(isset($_GET['wpath'])) {
+         		echo "<script> alert('Wrong Path');</script>";
+         	}
+         ?>
 </body>
 </html>
 

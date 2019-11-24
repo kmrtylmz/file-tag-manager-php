@@ -18,7 +18,7 @@ class Router {
 
 			 if (in_array($_SERVER['REQUEST_METHOD'], $method)) {
 
-			 		$data =  $method == "GET" ? $_GET : $_POST;
+			 		$data =  $method[0] === "GET" ? $_GET : $_POST; 
 
 	 		        $patterns = [
 		                '{url}' => '([0-9a-zA-Z]+)',
@@ -29,8 +29,13 @@ class Router {
 
 			 		$request_uri = self::changeDirectory();
 
+			 		$request_uri = explode("?",$request_uri)[0];
+
+			 		// or $_SERVER[PATH_INFO]
+
 			 	 if(preg_match('@^'.$url.'$@', $request_uri , $matches )) {
 					//  unset($matches[0]);
+			
 
 	 					if(is_callable($callback)) 
 			 	 		{
@@ -64,12 +69,7 @@ class Router {
 			 	 		}
 				 }
 	 	
-				 		require  "views/404.php";
-			 }
-			 else {
-
-			 	http_response_code(400);
-			 	exit;
+				 		
 			 }
 
 	}

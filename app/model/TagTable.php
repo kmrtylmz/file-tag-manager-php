@@ -21,13 +21,13 @@ namespace App\model;
 
 						// $stmt = $this->db->query("SELECT LAST_INSERT_ID()");
 						// $id = $stmt->fetchColumn();
-						 $qr = $this->db->prepare('INSERT INTO filelist (filename , filetype ,filesize , id) VALUES (:p,:f,:ft,:i)');
+						 $qr = $this->db->prepare('INSERT INTO filelist (filename , filetype ,filesize , id) VALUES (:m,:e,:r,:t)');
 
 		 					$qr->execute([
-		 							':p' => $path, 
-		 							':f' => $filetype,
-		 							'ft' => $filesize,
-		 							'i' => $id
+		 							'm' => $path, 
+		 							'e' => $filetype,
+		 							'r' => $filesize,
+		 							't' => $id
 		 					]);
 
 		 				$this->db->commit();
@@ -97,10 +97,10 @@ namespace App\model;
 
  			public function getSearch($tagName) { 
 
- 				  $qq =$this->db->prepare('SELECT filename FROM taglist WHERE tag = ? ');
+ 				  $qq =$this->db->prepare('SELECT * FROM filelist f INNER JOIN taglist t ON  f.id=t.id WHERE t.tag = :name ');
 
  				  $qq->execute([
- 				  			$tagName
+ 				  			'name' => $tagName
  				  				]);
  				  $res  = $qq->fetchAll(\PDO::FETCH_ASSOC);
 

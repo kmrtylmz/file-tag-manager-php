@@ -7,7 +7,7 @@ namespace App\model;
  					parent::__construct();
  			}
 
- 			public function createTag($path , $tag , $filetype , $filesize) { 
+ 			public function createTag($path , $tag , $filetype , $filesize , $encoded) { 
 
  						try {
  							
@@ -21,13 +21,14 @@ namespace App\model;
 
 						// $stmt = $this->db->query("SELECT LAST_INSERT_ID()");
 						// $id = $stmt->fetchColumn();
-						 $qr = $this->db->prepare('INSERT INTO filelist (filename , filetype ,filesize , id) VALUES (:m,:e,:r,:t)');
+						 $qr = $this->db->prepare('INSERT INTO filelist (filename , filetype ,filesize , fileencoded, id) VALUES (:m,:e,:r,:t,:y)');
 
 		 					$qr->execute([
 		 							'm' => $path, 
 		 							'e' => $filetype,
 		 							'r' => $filesize,
-		 							't' => $id
+		 							't' => $encoded,
+		 							'y' => $id
 		 					]);
 
 		 				$this->db->commit();
@@ -39,9 +40,6 @@ namespace App\model;
 
  							return false;
  						}
- 					
-
- 					
 
  					
  			}
@@ -68,16 +66,7 @@ namespace App\model;
  					return true;
  			}
 
- 			public function deleteTag($tag) { 
- 					$qq = $this->db->prepare('DELETE FROM taglist WHERE tag = ?');
 
- 					$qq->execute(array(
- 							$tag , 
- 							$path
- 					));
-
- 					return $qq->rowCount() > 0 ?  true :false;
- 			}
 
  			public function kill() {
  					 $this->db = null;
@@ -97,7 +86,7 @@ namespace App\model;
 
  			public function getSearch($tagName) { 
 
- 				  $qq =$this->db->prepare('SELECT * FROM filelist  INNER JOIN taglist  ON  filelist.id=taglist.id WHERE taglist.tag = ?');
+ 				  $qq =$this->db->prepare('SELECT * FROM filelist  INNER JOIN taglist  ON  filelist.id=taglist.id WHERE taglist.tag =:name');
 
  				  $qq->execute([
  				  			'name' => $tagName
@@ -106,5 +95,7 @@ namespace App\model;
 
  				  return $res;
  			}
+
+
 
  	}

@@ -12,6 +12,9 @@ Router::run('/create' , 'HardLinkController@create', 'post');
 
 Router::run('/search' , 'HardLinkController@search', 'post');
 
+Router::run('/open' , 'HardLinkController@open' , 'get');
+
+Router::run('/delete' , 'HardLinkController@delete' , 'get');
 /*
 Router::run('/?success' , function($name ) {
 		echo "işlem başarılı oldu ama yönlendirme problem";

@@ -9,22 +9,33 @@ class HardLink {
  			use config;
 
 
- 				public $path;
- 				public $tag;
+ 				public $path;	// olusturulacak olan path değeri. C:\bb\mert.txt
+ 				public $tag;	
 
  				private $hardlinkPath;
- 				private $fileName; // for different extension
- 				private $hardLink; // hardlink store
- 				private $n_hard_link; // for Windows
+ 			//	private $fileName; // for different extension
+ 			//	private $hardLink; // hardlink store
+ 			//	private $n_hard_link; // for Windows Then Update for Unix
+ 				public $token; 
+ 				private $files;
 
  				function __construct($path , $tag) {
 
  					$this->hardlinkPath = $this->getFolder();
  					$this->path = trim($path);
  					$this->tag = $tag;
- 					$this->fileName = basename($path);
- 					$this->hardLink = $this->hardlinkPath."\\".$this->fileName;
- 					$this->n_hard_link = str_replace('\\','\\\\', $this->hardLink);
+ 				//	$this->fileName = basename($path);
+ 				//	$this->hardLink = $this->hardlinkPath."\\".$this->fileName;
+ 				
+
+ 					$this->token = base64_encode($this->path); // benzersiz olan aynı klasör altında 2 dosyanın aynı isimde olamayacagıdır :)
+
+ 					$this->files = $this->hardlinkPath."\\".$this->token;  // C:\tags\base64 files..
+
+					$this->n_hard_link = str_replace('\\','\\\\', $this->files);
+
+ 					//str_rot13  özel karakterlerde patlar veriyor. \   Böyle bir dosya adı olusturulamaz.
+
  					if(!is_dir($this->hardlinkPath))
  					{
 				 	 mkdir($this->hardlinkPath , 0777);
@@ -57,6 +68,11 @@ class HardLink {
  					return link($this->path , $this->n_hard_link);
  				}
 
+ 				public function removeHardLinkFile($path) {
+
+ 					//shell_exec("del /f ")
+ 				}
+
  				public function findHardLinkPath(){
 
 					 $arr = [];
@@ -76,9 +92,9 @@ class HardLink {
 						return implode("" , $originalpath);
  				}
 
- 			 	function _mime_content_type($filename) {
+ 			 	function _mime_content_type($filepath) {
 						$finfo = finfo_open(FILEINFO_MIME_TYPE);
-				        $mimeType = finfo_file($finfo, $filename);
+				        $mimeType = finfo_file($finfo, $filepath);
 				        finfo_close($finfo);
 
 				        return $mimeType;

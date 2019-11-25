@@ -145,6 +145,10 @@ fieldset[disabled] .btn-green.active {
 		white-space: nowrap;
 	}
 
+	table tbody tr td button {
+		padding:0!important;
+	}
+
 	/*
 	tr:nth-child(even) , th {
 		background-color: #F9F9F9;

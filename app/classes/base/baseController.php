@@ -8,15 +8,13 @@ class baseController implements IController
 
 	public function view($fileName , $arg){
 
-	
-		// if(count($arg) > 1 ) {
-		// 	extract($arg); // for string
-		// }
-
+		ob_start();
 
 		require_once __DIR__."/../../views/". $fileName . ".php";
 
+		ob_end_flush();
 		clearstatcache();
+		
 		exit;
 	
 

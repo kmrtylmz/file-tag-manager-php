@@ -1,0 +1,23 @@
+{
+  "name": "www",
+  "version": "1.0.0",
+  "description": "Npm paketlerini yüklemeek",
+  "main": "index.js",
+  "dependencies": {
+    "izitoast": "^1.4.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kmrtylmz/FileTagManager-PHP.git"
+  },
+  "author": "mert yılmaz",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kmrtylmz/FileTagManager-PHP/issues"
+  },
+  "homepage": "https://github.com/kmrtylmz/FileTagManager-PHP#readme"
+}

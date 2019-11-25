@@ -18,6 +18,11 @@ use App\config;
  				
  			}
 
+ 			public function __destruct() {
+ 				
+ 				$this->db = null;
+ 			}
+
 
 
  	}	

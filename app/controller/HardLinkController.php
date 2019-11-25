@@ -10,16 +10,17 @@ class HardLinkController extends baseController {
 	use config;
 
 		private $Obj;
-
+		private $fileTableObj;
 		public function __construct(...$arg) 
 		{
 				$this->Obj = $this->model('TagTable');
+				$this->fileTableObj = $this->model('FileTable');
 		}
 
+	
 		public function show () { 
 			
 				$arrTags = $this->Obj->getAllTag();
-				$this->Obj->kill();
 
 				$this->view('index' , $arrTags);
 		}
@@ -28,7 +29,6 @@ class HardLinkController extends baseController {
 
 
 			echo json_encode($this->Obj->getSearch($tags["search"]));
-			$this->Obj->kill();
 
 		}
 
@@ -52,12 +52,11 @@ class HardLinkController extends baseController {
 
 				parse_str($data['data']);
 
-			 	$fileTableObj =	$this->model('FileTable');
+			 	
 
 			 	$arr = $fileTableObj->getFileEncoded($f_id);
-			 	// $b = array("file" => "ceza" , "b" => "a");
-			 	// print_r($b);
-			// //	$try = new HardLink()	! düzeltilecek..
+	
+				 //	$try = new HardLink()	! düzeltilecek..
 			 	$file = $this->getFolder() . "\\". $arr[0]['fileencoded'];
 
 			 	unlink($file);
@@ -67,6 +66,25 @@ class HardLinkController extends baseController {
 
 			 	echo "Tags altından ve Db den silindi..";
 				
+		}
+
+		public function tagDelete($tag) {
+
+				$arr = $this->fileTableObj->getFileEncodedTag($tag['data']); 
+				
+				print_r($arr[0]);
+
+				for($i=0; $i < count($arr); $i++ ) {
+					$file = $this->getFolder() . "\\". $arr[$i]['fileencoded'];
+					unlink($file);
+				}
+	
+				 
+				$a = $this->Obj->deleteTag($tag['data']);
+
+				
+				echo "Tags altından dosyalar silindi ve Db den silindi.";
+			
 		}
 
 
@@ -89,7 +107,7 @@ class HardLinkController extends baseController {
 
  				 				$db =$this->Obj->createTag($a->path , $a->tag , $mime , $filesize , $a->token);
  				 				if($db){
- 				 				$this->Obj->kill();
+ 				 			
  				 				header('Location:/?success');
  				 				} 
  				 				else {
@@ -114,7 +132,12 @@ class HardLinkController extends baseController {
 
  				 }
  				 else {
- 						header("Location:/?wpath");
+ 				 		
+ 					
+						$_SESSION['wpath'] = 1;
+ 						header("Location:/");
+ 						
+
  				}		
 			}
 

@@ -67,16 +67,9 @@ namespace App\model;
  			}
 
 
-
- 			public function kill() {
- 					 $this->db = null;
- 					 return true;
- 			}
-
-
  			public function getAllTag() {
 
- 				$qq = $this->db->prepare("SELECT tag FROM taglist LIMIT 20");
+ 				$qq = $this->db->prepare("SELECT tag FROM taglist LIMIT 30");
  				$qq->execute();
  				$res = $qq->fetchAll(\PDO::FETCH_ASSOC);
 
@@ -96,6 +89,23 @@ namespace App\model;
  				  return $res;
  			}
 
+
+ 			public function deleteTag($tag){
+
+ 					$qq = $this->db->prepare('DELETE FROM filelist WHERE id IN (Select id FROM taglist WHERE tag =:tag)');
+ 					
+ 					$qq->execute([ 
+ 						'tag' => $tag 
+ 					]);
+
+					$qr = $this->db->prepare('DELETE FROM taglist WHERE tag = :tag');
+					$qr->execute([
+						'tag' => $tag
+					]);
+ 					
+
+ 					return $qq->rowCount() > 0 ? true : false;
+ 			}
 
 
  	}

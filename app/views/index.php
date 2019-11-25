@@ -9,6 +9,8 @@
 
        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
+       <link rel="stylesheet" href="/public/css/iziToast.min.css">
+
 </head>
 
 <link rel="stylesheet" href="/public/css/style.css">
@@ -61,16 +63,15 @@
 		<div class="table-wrapper-scroll-y my-custom-scrollbar" style="border:1px solid #ccc;">
 			<div class="d-flex flex-wrap mt-2">
 					
-				<?php if (isset($arg))
-				//print_r($arg);
+				<?php if (isset($arg)){
 					$arrTags = array_column($arg, "tag");
-				 { foreach ($arrTags as $key => $value) { ?>
+				  foreach ($arrTags as $key => $value) { ?>
 
 					<div class="p-2">
 							<a href="#" class="badge badge-secondary p-2">
 
 							<?= $value ?>
-							 <button type="button"  class="close" aria-label="Close">
+							 <button type="button" data-text="<?= $value ?>" class="close" aria-label="Close">
 							 <span aria-hidden="true">&times;</span>
 						</button>
 						</a>
@@ -136,6 +137,7 @@
 
 
 <script src="/public/js/jquery-3.4.1.min.js"></script>
+<script src="/public/js/iziToast.min.js" type="text/javascript"></script>
 		
 		<script>
 
@@ -210,6 +212,9 @@
         </script>
 
         <script> 
+
+        		var conflict = false;
+
 				$('#tagTable').on("click", ".open" ,  function(){
 						var url = $(this).data("url");
 
@@ -226,22 +231,76 @@
 				});
 
 				 $("button.close").on("click", function(){
+				 	conflict = true;
+				 iziToast.show({
+					    theme: 'dark',
+					    icon: 'far fa-question-circle',
+					    title: 'Information',
+					    overlay : true,
+					    message: 'Selected tag will be deleted. Sure?',
+					    position: 'center', // bottomRight, bottomLeft, topRight, topLeft, topCenter, bottomCenter
+					    progressBarColor: 'rgb(0, 255, 184)',
+					    buttons: [
+					        ['<button>Yes</button>', function (instance, toast) {
+					           		
+					           		var tag = $(this).data("text");
+								 		$.post('/delete/tag', { data : tag }).done(function(data){
+								 					console.log(data);
+								 		});
+					           	
+					        }, true], // true to focus
+					        ['<button>No</button>', function (instance, toast) {
+					            instance.hide({
+					                transitionOut: 'fadeOutUp'
+					        } , toast);
+					          
+					    	}]
+					    	],
+					    	 onClosing: function(instance, toast, closedBy){
+							        conflict = false;
+							    }
+					    	
+					});
+				 		
+				 });
 
-				 			
+				 $("a.badge").on("click", function(){
+				 	if(!conflict) {
+				 	var text =$(this).text().match(/\w+/gi);
+				 		$('input[name="search"]').val(text);
+				 		$('#search').click();
+
+				 	}
+				 	return;
 				 });
         </script>
 
         <?php 
 
         	if(isset($_GET['success'])) {
-        		echo "<script> alert('Created ! Perfect '); </script>";
+        		echo "<script>iziToast.success({
+						    title: 'OK',
+						    position: 'topRight',
+						    message: 'Successfully!',
+						}); </script>";
         	}
          	if(isset($_GET['fail'])) {
-         		echo "<script> alert('Not Create Tag.');</script>";
+         		echo "<script>iziToast.error({
+						    title: 'Error',
+						    position: 'topRight',
+						    message: 'Failed!',
+						}); </script>";
          	}
-         	   	if(isset($_GET['wpath'])) {
-         		echo "<script> alert('Wrong Path');</script>";
+         	   	if(isset($_SESSION['wpath']) && $_SESSION['wpath']) {
+         		echo "<script>iziToast.info({
+						    title: 'Message',
+						    position: 'topRight',
+						    message: 'Wrong Path!',
+						}); </script>";
+         			unset($_SESSION['wpath']);
          	}
+         	print_r($_SESSION);
+
          ?>
 </body>
 </html>

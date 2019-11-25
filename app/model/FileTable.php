@@ -20,6 +20,18 @@ namespace App\Model;
 
  				}
 
+ 				public function getFileEncodedTag($tag) {
+
+ 					
+ 					$qq =$this->db->prepare('SELECT filelist.fileencoded FROM filelist INNER JOIN taglist ON filelist.id=taglist.id  WHERE taglist.tag =:tag');
+ 					$qq->execute([ 'tag' => $tag ]);
+
+ 					$res  = $qq->fetchAll(\PDO::FETCH_ASSOC);
+
+ 					return $res;
+
+ 				}
+
  				public function deleteFile($id)
  				{
  					$qq = $this->db->prepare('DELETE FROM filelist WHERE f_id =:Y');
@@ -32,8 +44,4 @@ namespace App\Model;
  				}
  		
 
-	 			public function kill() {
-	 					 $this->db = null;
-	 					 return true;
-	 			}
  	}

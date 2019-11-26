@@ -7,8 +7,7 @@
 
        <link rel="stylesheet" href="/public/css/bootstrap.css">
 
-       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-
+ 	   <link rel="stylesheet" href="/public/css/fontawesome.min.css">
        <link rel="stylesheet" href="/public/css/iziToast.min.css">
 
 </head>
@@ -188,7 +187,7 @@
         	$( "#search" ).on("click", function(event) {
 				var search = $("input[name='search']").val();
         		$.post('/search' , { search : search } ).done(function(data) {
-
+        				if(data.trim()!== '' && data !== null && data !== "undefined" ) {	
     					var dataJsn = $.parseJSON(data);
     					 var content = '';
     					for (var i = 0; i < dataJsn.length; i++) {
@@ -204,8 +203,9 @@
 					 	'<img src="/public/images/delete.ico" alt="ad"/></button></td>' + 
 					    '</tr>';
 						}
-						 $("tbody").html(content);
-					//console.log(dataJsn);
+						 $("tbody").html(content); 
+						}
+					//console.log(data);
         		});
 
 			});
@@ -224,29 +224,56 @@
 				});
 
 				$('#tagTable').on("click", ".delete" ,  function(){
-						var url = $(this).data("url");
-						$.get('/delete' , {  data : url }).done(function(data){
-									console.log(data);
-					});
-				});
-
-				 $("button.close").on("click", function(){
-				 	conflict = true;
-				 iziToast.show({
-					    theme: 'light',
+					var $th =  $(this);
+					var url = $(this).data("url");
+					iziToast.show({
+					    theme: 'dark',
 					    icon: 'far fa-question-circle',
 					    title: 'Information',
 					    overlay : true,
+					    closeOnEscape: true,
+					    message: 'File tag will be deleted. Sure?',
+					    position: 'center', // bottomRight, bottomLeft, topRight, topLeft, topCenter, bottomCenter
+					    progressBarColor: 'rgb(0, 255, 184)',
+					    buttons: [
+					        ['<button>Yes</button>', function (instance, toast) {
+					           		 instance.hide({ transitionOut: 'fadeOutUp' } , toast);
+					           			$th.parent().parent().remove();
+										$.get('/delete' , {  data : url }).done(function(data){
+										  //console.log(data);
+					           				});
+					        
+					        }, true], // true to focus
+					        ['<button>No</button>', function (instance, toast) {
+					            instance.hide({
+					                transitionOut: 'fadeOutUp'
+					        } , toast);
+					          
+					    	}]
+					    	]					    		
+				});
+				});
+
+				 $("button.close").on("click", function(){
+				 	var $th =  $(this);
+				 	var tag = $th.data("text");
+				 	conflict = true;
+				 iziToast.show({
+					    theme: 'dark',
+					    icon: 'far fa-question-circle',
+					    title: 'Information',
+					    overlay : true,
+					    closeOnEscape: true,
 					    message: 'Selected tag will be deleted. Sure?',
 					    position: 'center', // bottomRight, bottomLeft, topRight, topLeft, topCenter, bottomCenter
 					    progressBarColor: 'rgb(0, 255, 184)',
 					    buttons: [
 					        ['<button>Yes</button>', function (instance, toast) {
-					           		
-					           		var tag = $(this).data("text");
-								 		$.post('/delete/tag', { data : tag }).done(function(data){
-								 					console.log(data);
-								 		});
+					           		 instance.hide({ transitionOut: 'fadeOutUp' } , toast);
+					           			$th.parent().parent().remove();
+							 		$.post('/delete/tag', { data : tag }).done(function(data){
+							 					console.log(data);
+							 		});
 					           	
 					        }, true], // true to focus
 					        ['<button>No</button>', function (instance, toast) {

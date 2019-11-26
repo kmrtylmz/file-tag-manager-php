@@ -17,6 +17,9 @@ namespace App\model;
  					    $rq = $this->db->prepare("INSERT INTO  taglist  (tag)  VALUES (:tag)");
  					    $rq->execute([ 'tag' => $tag ]);
 
+ 					    // $rq = $this->db->prepare("INSERT OR IGNORE INTO  taglist  (tag)  VALUES (:tag) ON CONFLICT(tag) DO UPDATE SET tag=:tag");
+ 					    // $rq->execute([ 'tag' => $tag ]);
+
 						$id = $this->db->lastInsertId();
 
 						// $stmt = $this->db->query("SELECT LAST_INSERT_ID()");

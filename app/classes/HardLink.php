@@ -13,9 +13,7 @@ class HardLink {
  				public $tag;	
 
  				private $hardlinkPath;
- 			//	private $fileName; // for different extension
- 			//	private $hardLink; // hardlink store
- 			//	private $n_hard_link; // for Windows Then Update for Unix
+ 				private $n_hard_link; // for Windows Then Update for Unix
  				public $token; 
  				private $files;
 
@@ -24,8 +22,6 @@ class HardLink {
  					$this->hardlinkPath = $this->getFolder();
  					$this->path = trim($path);
  					$this->tag = $tag;
- 				//	$this->fileName = basename($path);
- 				//	$this->hardLink = $this->hardlinkPath."\\".$this->fileName;
  				
 
  					$this->token = base64_encode($this->path); // benzersiz olan aynı klasör altında 2 dosyanın aynı isimde olamayacagıdır :)
@@ -75,21 +71,21 @@ class HardLink {
 
  				public function findHardLinkPath(){
 
-					 $arr = [];
-					// return hardlink's referance url
-					 exec("fsutil hardlink list ". $this->n_hard_link , $arr);
+					//  $arr = [];
+					// // return hardlink's referance url
+					//  exec("fsutil hardlink list ". $this->n_hard_link , $arr);
 
-					$matches = preg_grep('@^([^\$][0-9-a-zA-z-_\.]+)@' , $arr );
+					// $matches = preg_grep('@^([^\$][0-9-a-zA-z-_\.]+)@' , $arr );
 
-						$originalpath = array_filter($matches , function($value){
+					// 	$originalpath = array_filter($matches , function($value){
 						
-							 if(strncmp($this->folder , $value , strlen($this->folder)) !== 0) {
-							 		return $value; 
-								}
-								return;
-						});
+					// 		 if(strncmp($this->folder , $value , strlen($this->folder)) !== 0) {
+					// 		 		return $value; 
+					// 			}
+					// 			return;
+					// 	});
 						
-						return implode("" , $originalpath);
+					// 	return implode("" , $originalpath);
  				}
 
  			 	function _mime_content_type($filepath) {

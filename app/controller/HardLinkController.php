@@ -27,9 +27,67 @@ class HardLinkController extends baseController {
 
 		public function search($tags) {
 
+			$files = $this->Obj->getSearch($tags["search"]);	
+			$x = false;
+				if(count($files)>0) {
 
-			echo json_encode($this->Obj->getSearch($tags["search"]));
+					$filesArr = array_column($files, 'fileencoded');
+					$filesOld = array_column($files, 'filename');
+					$filesType = array_column($files, 'filetype');
+					$filesSize = array_column($files, 'filesize');
+					
 
+					foreach ($filesArr as $key => $value) {						
+					
+					$path = $this->getFolder(). "\\".$value;
+					$n_hard_link = str_replace('\\', '\\\\', $path);
+					 $arr = [];
+					// return hardlink's referance url
+					 exec("fsutil hardlink list ". $n_hard_link , $arr);
+
+					$matches = preg_grep('@^([^\$][0-9-a-zA-z-_\.]+)@' , $arr );
+
+				
+						$originalpath = array_map(function($value){ 
+							$home = $this->homeDrive();
+							 if(strncmp($this->folder , $value , strlen($this->folder)) !== 0) {
+							 	 	return $home.$value;
+								}
+								return;
+						},$matches);
+						
+						$originalpathArr[] = implode($originalpath);
+						}
+
+						
+					foreach ($originalpathArr as $key => $newpath) {
+						
+						$filetype = mime_content_type($newpath);
+
+					    $filesize = filesize($newpath). 'bytes';
+
+
+					    if(!file_exists($filesOld[$key]) || $filesType[$key] !== $filetype || $filesSize[$key] !== $filesize)
+					    {
+					    		 $this->fileTableObj->updateHardLinkPath( $filetype , $filesize , $newpath, $filesArr[$key]);
+								 $x=true;    				
+						}
+						else {
+								continue;
+						}
+
+					}
+
+					if($x){
+						$newFiles = $this->Obj->getSearch($tags["search"]);
+						echo json_encode($newFiles);
+					}
+					else{
+						echo json_encode($files);
+					}
+				}
+
+		
 		}
 
 		public function open($file) {
@@ -69,13 +127,12 @@ class HardLinkController extends baseController {
 
 				$arr = $this->fileTableObj->getFileEncodedTag($tag['data']); 
 				
-				print_r($arr[0]);
-
+				if(count($arr) > 0) {
 				for($i=0; $i < count($arr); $i++ ) {
 					$file = $this->getFolder() . "\\". $arr[$i]['fileencoded'];
 					unlink($file);
 				}
-	
+				}
 				 
 				$a = $this->Obj->deleteTag($tag['data']);
 
@@ -108,35 +165,23 @@ class HardLinkController extends baseController {
  				 				else {
  				 				$_SESSION['filefail'] = 1;
  				 				header('Location:/');
- 				 				}
- 				 				
- 				 								 			
+ 				 				} 								 			
  				 		   }
-
  				 		else {
  				 				$_SESSION['dbfail'] = 1;
  				 				header('Location:/');
  				 		}
 
 					}
-
 					else {
 
-							$_SESSION['TaggedError'] = 1;
+							$_SESSION['taggedError'] = 1;
 							header('Location:/');
-					// $paths =  $a->findHardLinkPath();
-
- 					// 	$this->view("index", compact($paths));
 					}
-
  				 }
  				 else {
- 				 		
- 					
 						$_SESSION['typefail'] = 1;
  						header("Location:/");
- 						
-
  				}		
 			}
 

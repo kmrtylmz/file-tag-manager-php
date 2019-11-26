@@ -42,6 +42,20 @@ namespace App\Model;
 
  					return $qq->rowCount() > 0 ?  true :false;
  				}
- 		
+ 				
+
+ 				public function updateHardLinkPath($filetype , $filesize, $filename, $encoded){
+
+ 					$qq = $this->db->prepare('UPDATE filelist SET filetype =:filetype, filesize =:filesize , filename =:fileNewPath WHERE fileencoded =:fileencoded');
+ 					
+ 					$qq->execute([
+ 								'filetype' => $filetype,
+ 								'filesize' => $filesize,
+ 								'fileNewPath' => $filename,
+ 								'fileencoded' => $encoded
+ 								]);
+
+ 					return $qq->rowCount() > 0  ?  true : false;
+ 				}
 
  	}

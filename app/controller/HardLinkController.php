@@ -52,17 +52,14 @@ class HardLinkController extends baseController {
 
 				parse_str($data['data']);
 
-			 	
-
-			 	$arr = $fileTableObj->getFileEncoded($f_id);
+			 	$arr = $this->fileTableObj->getFileEncoded($f_id);
 	
 				 //	$try = new HardLink()	! düzeltilecek..
 			 	$file = $this->getFolder() . "\\". $arr[0]['fileencoded'];
 
 			 	unlink($file);
 
-			 	$fileTableObj->deleteFile($f_id);
-			 	$fileTableObj->kill();
+			 	$this->fileTableObj->deleteFile($f_id);
 
 			 	echo "Tags altından ve Db den silindi..";
 				
@@ -102,39 +99,41 @@ class HardLinkController extends baseController {
 						$mime = $a->_mime_content_type($path);
 						$filesize = filesize($path). 'bytes';
 
- 				 		if($a->createHardLink()) { //True
+ 				 		if($this->Obj->createTag($a->path , $a->tag , $mime , $filesize , $a->token)) { //True
 
-
- 				 				$db =$this->Obj->createTag($a->path , $a->tag , $mime , $filesize , $a->token);
- 				 				if($db){
- 				 			
- 				 				header('Location:/?success');
+ 				 				if($a->createHardLink()){
+ 				 				$_SESSION['completed'] = 1;
+ 				 				header('Location:/');
  				 				} 
  				 				else {
- 				 				header('Location:/?fail');
+ 				 				$_SESSION['filefail'] = 1;
+ 				 				header('Location:/');
  				 				}
  				 				
- 				 				// $this->view('index' , compact("check")); 				 			
+ 				 								 			
  				 		   }
 
  				 		else {
- 				 			echo "False.. Not Create Tag.";
+ 				 				$_SESSION['dbfail'] = 1;
+ 				 				header('Location:/');
  				 		}
 
 					}
 
 					else {
 
-						$paths =  $a->findHardLinkPath();
+							$_SESSION['TaggedError'] = 1;
+							header('Location:/');
+					// $paths =  $a->findHardLinkPath();
 
- 						$this->view("index", compact($paths));
+ 					// 	$this->view("index", compact($paths));
 					}
 
  				 }
  				 else {
  				 		
  					
-						$_SESSION['wpath'] = 1;
+						$_SESSION['typefail'] = 1;
  						header("Location:/");
  						
 

@@ -233,7 +233,7 @@
 				 $("button.close").on("click", function(){
 				 	conflict = true;
 				 iziToast.show({
-					    theme: 'dark',
+					    theme: 'light',
 					    icon: 'far fa-question-circle',
 					    title: 'Information',
 					    overlay : true,
@@ -276,30 +276,40 @@
         </script>
 
         <?php 
+        	$messages = [ 
+        				  'completed' => ['OK', 'Successfully', 'success'] ,
+        				  'filefail'  => ['Error', 'File Not Created Tag', 'error'],
+        				  'dbfail' => ['Error', 'Database Error' , 'warning'],
+        				  'taggedError' => ['Message' , 'Tag on File Exists' , 'info'],
+        				  'typefail' => ['Message' , 'File Type Inappropriate' , 'info']
+        				];
+				
+        	if(!empty($_SESSION)) {
 
-        	if(isset($_GET['success'])) {
-        		echo "<script>iziToast.success({
-						    title: 'OK',
-						    position: 'topRight',
-						    message: 'Successfully!',
-						}); </script>";
-        	}
-         	if(isset($_GET['fail'])) {
-         		echo "<script>iziToast.error({
-						    title: 'Error',
-						    position: 'topRight',
-						    message: 'Failed!',
-						}); </script>";
-         	}
-         	   	if(isset($_SESSION['wpath']) && $_SESSION['wpath']) {
-         		echo "<script>iziToast.info({
-						    title: 'Message',
-						    position: 'topRight',
-						    message: 'Wrong Path!',
-						}); </script>";
-         			unset($_SESSION['wpath']);
-         	}
-         	print_r($_SESSION);
+        				$content = "<script>";
+
+        				foreach ($_SESSION as $key => $value) {
+
+        						if(array_key_exists($key, $messages))
+        						 {
+        								
+        						 	$content .= 'iziToast.'.$messages[$key][2].'({
+												    title: "'.$messages[$key][0].'",
+												    position: "topRight",
+												    message: "'.$messages[$key][1].'",
+												 });';
+
+        						 		unset($_SESSION[$key]);
+        					     }
+
+        				}
+
+        				$content.= "</script>";
+
+        				echo $content;
+
+        	}	
+         	
 
          ?>
 </body>

@@ -14,17 +14,14 @@
 
      
 
-body {
+body, input  {
 		background-color: #fafbfd;
 		font-family: 'Quicksand', sans-serif;
 		font-weight: 700;
 		
 		
 	}
-input { 
-	    font-family: 'Quicksand', sans-serif!important;
-    font-weight: 700;
- }
+
 .btn-green { 
   color: #FFFFFF; 
   background-color: #18E06F; 

@@ -90,6 +90,15 @@ class HardLinkController extends baseController {
 		
 		}
 
+		public function getMore($append) {
+					
+				$arr = json_decode($append['data'], true);
+
+			
+				echo json_encode($this->Obj->getAllTag($arr['start'],$arr['append']));
+
+		}
+
 		public function open($file) {
 
 				$explorer = $_ENV["SYSTEMROOT"] . '\\explorer.exe';

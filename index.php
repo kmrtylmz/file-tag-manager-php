@@ -2,11 +2,10 @@
 require "vendor/autoload.php";
 
 use App\Router;
-//ob_start()
+
 if (session_status() == PHP_SESSION_NONE) {
-				    session_start();
-				  //  $_SESSION['wpath'] = 1;
-				}
+	session_start();
+}
 
 
 Router::run('/', "HardLinkController@show");
@@ -20,6 +19,14 @@ Router::run('/open' , 'HardLinkController@open' , 'get');
 Router::run('/delete' , 'HardLinkController@delete' , 'get');
 
 Router::run('/delete/tag' , 'HardLinkController@tagDelete' , 'post');
+
+Router::run('/getmore' , 'HardLinkController@getMore'  , 'post');
+
+Router::run('/errors/500', function($name) {
+
+		require "app/views/500.php";
+
+});
 /*
 Router::run('/?success' , function($name ) {
 		echo "işlem başarılı oldu ama yönlendirme problem";

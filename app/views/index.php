@@ -60,14 +60,14 @@
 <div class="row pl-2 pt-4">
 	<p class="text-secondary"><u> Your Tags :</u></p>
 		<div class="table-wrapper-scroll-y my-custom-scrollbar" style="border:1px solid #ccc;">
-			<div class="d-flex flex-wrap mt-2">
+			<div class="d-flex flex-wrap mt-2" id="tags">
 					
 				<?php if (isset($arg)){
 					$arrTags = array_column($arg, "tag");
 				  foreach ($arrTags as $key => $value) { ?>
 
 					<div class="p-2">
-							<a href="#" class="badge badge-secondary p-2">
+							<a href="#" class="badge badges badge-secondary p-2">
 
 							<?= $value ?>
 							 <button type="button" data-text="<?= $value ?>" class="close" aria-label="Close">
@@ -77,7 +77,7 @@
 					</div>  
 				<?php 	} } ?>
 
-					<div class="p-2"><a href="#" class="badge badge-warning p-2 "> <u>Get More..</u> </a></div>
+					<div class="p-2"><a href="#" class="badge badge-warning p-2" data-start="7" data-append="12"  id="more"> <u>Get More..</u> </a></div>
 			</div>
 		</div>
 </div>
@@ -139,30 +139,44 @@
 <script src="/public/js/iziToast.min.js" type="text/javascript"></script>
 		
 		<script>
-
+		var counter = 0;
+		 var halfcheck = true; var quartercheck = true; var halfcheckreduce = true; var quartercheckreduce = true;
 		$("input[type='text'].creator").on("change" , function(e){
 
 			var name = e.target.name;
 			var $proc = $(".progress");
 			var $procbar = $(".progress-bar");
 			var currentWidth = ($proc.width()*0.25);
+			var check = $("input[name=" + e.target.name + "").val().length;
+			
 
-			if($("input[name=" + e.target.name + "").val().length !== 0){
-				if(name === "path") {
+			if( check != 0 ){
+				if(name === "path" && halfcheck) {
 				$procbar.animate( { width : "+="+(currentWidth*2)+"px" } , 200 );
+					halfcheck = false;
 				}
-				else {
+				if(name === "tag" && quartercheck) {
 				$procbar.animate( { width : "+="+currentWidth+"px" } , 200 );
+				quartercheck = false;
 				}
+				
+			}
+			else if(check > 0 && $procbar.width() > 0) {
+
 			}
 			
 			else {
-					if(name === "path")  {
+					if(name === "path" && halfcheckreduce)  {
 					$procbar.animate( { width : "-="+(currentWidth*2)+"px" } , 200 );
+					halfcheckreduce = false;
+					halfcheck = true;
 					}
-					else{
+					if(name === "tag" && quartercheckreduce){
 						$procbar.animate( { width : "-="+currentWidth+"px" } , 200 );
+					quartercheckreduce = false;
+					quartercheck = true;
 					}
+					
 				}	           
 			});
 	
@@ -205,7 +219,10 @@
 						}
 						 $("tbody").html(content); 
 						}
-					//console.log(data);
+						else {
+							$("tbody").html('<tr><td colspan="6" style="padding:2rem!important;">Not Created File on This Tag ! </td></tr>');
+						}
+					console.log(data);
         		});
 
 			});
@@ -219,10 +236,39 @@
 						var url = $(this).data("url");
 
 						$.get('/open' , {  data : url }).done(function(data){
-									console.log(data);
+									//console.log(data);
 					});
 				});
 
+				$('#more').on("click", function(){
+						var append = $(this).data("append");
+						var start = $(this).data("start");
+						var qsa = { "start" : start , "append" : append };
+						$.post('/getmore' , {  data : JSON.stringify(qsa) }).done(function(data){
+								if(data.trim()!== '' && data !== null && data !== "undefined" && data.trim()!="[]") {
+									var tags = $.parseJSON(data);
+									var counter = append+5;
+									$("#more").data("append" ,counter);
+									$("#more").data("start", append);
+									
+									for (var i = 0; i < tags.length; i++) {
+							
+							$("#tags div.p-2:last").before('<div class="p-2">'+
+								'<a href="#" class="badge badges badge-secondary p-2">'+  tags[i].tag + 
+								'<button type="button" data-text="'+ tags[i].tag +'" class="close" aria-label="Close">'+
+								 '<span aria-hidden="true">&times;</span>'+
+								'</button>'+
+								'</a>'+
+								'</div>');
+
+									}
+								}
+								else {
+									$("#more").parent().remove();
+								}
+							//	console.log(data);
+					});
+				});
 				$('#tagTable').on("click", ".delete" ,  function(){
 					var $th =  $(this);
 					var url = $(this).data("url");
@@ -254,7 +300,7 @@
 				});
 				});
 
-				 $("button.close").on("click", function(){
+				 $("#tags").on("click", 'button.close', function(){
 				 	var $th =  $(this);
 				 	var tag = $th.data("text");
 				 	conflict = true;
@@ -291,12 +337,12 @@
 				 		
 				 });
 
-				 $("a.badge").on("click", function(){
+				 $("#tags").on("click", "a.badges" , function(){
 				 	if(!conflict) {
 				 	var text =$(this).text().match(/\w+/gi);
 				 		$('input[name="search"]').val(text);
 				 		$('#search').click();
-
+				 		console.log("ok");
 				 	}
 				 	return;
 				 });

@@ -63,6 +63,7 @@ class Router {
 			                    }
 			                    else {
 			                    		http_response_code(500);
+			                    		header('Location:/errors/500');
 			                    		die();
 			                    }
 

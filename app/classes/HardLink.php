@@ -21,7 +21,7 @@ class HardLink {
 
  					$this->hardlinkPath = $this->getFolder();
  					$this->path = trim($path);
- 					$this->tag = $tag;
+ 					$this->tag = trim($tag);
  				
 
  					$this->token = base64_encode($this->path); // benzersiz olan aynı klasör altında 2 dosyanın aynı isimde olamayacagıdır :)

@@ -13,17 +13,20 @@ namespace App\model;
  							
  					
  						$this->db->beginTransaction();
- 				
- 					    $rq = $this->db->prepare("INSERT INTO  taglist  (tag)  VALUES (:tag)");
+  					
+						
+ 					    if ($db_id = $this->selectTag($tag)) {
+ 					    	  	$id = $db_id; 
+ 					    }
+
+ 					    else {
+
+ 					  $rq = $this->db->prepare('INSERT INTO taglist (tag)  VALUES (:tag)');
  					    $rq->execute([ 'tag' => $tag ]);
+ 						$id = $this->db->lastInsertId();
+						
+						 }
 
- 					    // $rq = $this->db->prepare("INSERT OR IGNORE INTO  taglist  (tag)  VALUES (:tag) ON CONFLICT(tag) DO UPDATE SET tag=:tag");
- 					    // $rq->execute([ 'tag' => $tag ]);
-
-						$id = $this->db->lastInsertId();
-
-						// $stmt = $this->db->query("SELECT LAST_INSERT_ID()");
-						// $id = $stmt->fetchColumn();
 						 $qr = $this->db->prepare('INSERT INTO filelist (filename , filetype ,filesize , fileencoded, id) VALUES (:m,:e,:r,:t,:y)');
 
 		 					$qr->execute([
@@ -49,30 +52,20 @@ namespace App\model;
 
  			public function selectTag($tag) { 
 
- 				$sql = "SELECT COUNT(*) FROM taglist WHERE tag = {$tag}";
-						if ($rq = $this->db->query($sql)) {
-						  if ($rq->fetchColumn() > 0) {
-						  		$qq = $this->db->prepare('SELECT * FROM taglist WHERE tag = :tag' );
-				 					$qq->execute([
-				 							'tag' => $tag
-				 					]);
+ 				$sql = "SELECT COUNT(*) as count , id FROM taglist WHERE tag =:tag";
+				$qq  = $this->db->prepare($sql);
+				$qq->execute(array('tag' => $tag));
+				$res = $qq->fetch(\PDO::FETCH_ASSOC);
+				$qq->closeCursor();
 
-				 					$res = $qq->fetchAll(\PDO::FETCH_ASSOC);
-
-				 					return $res;
-						  }
-						  else{
-						  			return false;
-						  }
-						}
- 				
- 					return true;
+				return	$res['count'] == 1 ?   $res['id']  : false;
+						
  			}
 
 
- 			public function getAllTag() {
+ 			public function getAllTag($start = 0 , $limit = 7) {
 
- 				$qq = $this->db->prepare("SELECT tag FROM taglist LIMIT 30");
+ 				$qq = $this->db->prepare("SELECT tag FROM taglist LIMIT {$start}, {$limit}");
  				$qq->execute();
  				$res = $qq->fetchAll(\PDO::FETCH_ASSOC);
 

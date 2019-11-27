@@ -11,5 +11,8 @@ namespace App;
  					return "{$_ENV['HOMEDRIVE']}\\tags";
  				}
 
+ 				public function homeDrive() {
+ 					return "{$_ENV['HOMEDRIVE']}";
+ 				}
 
  			}

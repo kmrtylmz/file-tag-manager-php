@@ -1,5 +1,6 @@
 <?php 
 namespace App\model;
+use App\config;
 
  	class Sqlitev3 {
 
@@ -15,6 +16,11 @@ namespace App\model;
 				   }
  				return $this->db;
  				
+ 			}
+
+ 			public function __destruct() {
+ 				
+ 				$this->db = null;
  			}
 
 

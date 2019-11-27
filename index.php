@@ -2,16 +2,35 @@
 require "vendor/autoload.php";
 
 use App\Router;
-//ob_start()
 
-Router::run('/', "HardLinkController@create");
-
-Router::run('/ad' , 'HardLinkController@create', 'post|get');
-
-
-Router::run('/uye' , 'HardLinkController@create', 'post|get');
+if (session_status() == PHP_SESSION_NONE) {
+	session_start();
+}
 
 
+Router::run('/', "HardLinkController@show");
+
+Router::run('/create' , 'HardLinkController@create', 'post');
+
+Router::run('/search' , 'HardLinkController@search', 'post');
+
+Router::run('/open' , 'HardLinkController@open' , 'get');
+
+Router::run('/delete' , 'HardLinkController@delete' , 'get');
+
+Router::run('/delete/tag' , 'HardLinkController@tagDelete' , 'post');
+
+Router::run('/getmore' , 'HardLinkController@getMore'  , 'post');
+
+Router::run('/errors/500', function($name) {
+
+		require "app/views/500.php";
+
+});
+/*
+Router::run('/?success' , function($name ) {
+		echo "işlem başarılı oldu ama yönlendirme problem";
+});
 
  	 		/*if($_POST) {
 

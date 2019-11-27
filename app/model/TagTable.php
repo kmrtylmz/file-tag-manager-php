@@ -3,58 +3,105 @@ namespace App\model;
 
 	class TagTable extends Sqlitev3 { 
 
- 			public function __construct(){
+ 			public function __construct(...$arg){
  					parent::__construct();
  			}
 
- 			public function createTag($path , $tag) { 
- 					$qq = $this->db->prepare('INSERT INTO taglist (tag , filename) VALUES ( ? , ? )');
+ 			public function createTag($path , $tag , $filetype , $filesize , $encoded) { 
 
- 					$qq->execute([
- 							$tag, 
- 							$path
- 					]);
+ 						try {
+ 							
+ 					
+ 						$this->db->beginTransaction();
+  					
+						
+ 					    if ($db_id = $this->selectTag($tag)) {
+ 					    	  	$id = $db_id; 
+ 					    }
 
+ 					    else {
 
- 					return $qq->rowCount() > 0 ?  true :false;
+ 					  $rq = $this->db->prepare('INSERT INTO taglist (tag)  VALUES (:tag)');
+ 					    $rq->execute([ 'tag' => $tag ]);
+ 						$id = $this->db->lastInsertId();
+						
+						 }
+
+						 $qr = $this->db->prepare('INSERT INTO filelist (filename , filetype ,filesize , fileencoded, id) VALUES (:m,:e,:r,:t,:y)');
+
+		 					$qr->execute([
+		 							'm' => $path, 
+		 							'e' => $filetype,
+		 							'r' => $filesize,
+		 							't' => $encoded,
+		 							'y' => $id
+		 					]);
+
+		 				$this->db->commit();
+
+		 					return true;
+						}
+ 						 catch (Exception $e) {
+ 							$this->db->rollBack();
+
+ 							return false;
+ 						}
+
+ 					
  			}
 
  			public function selectTag($tag) { 
 
- 				$sql = "SELECT COUNT(*) FROM taglist WHERE tag = {$tag}";
-						if ($rq = $this->db->query($sql)) {
-						  if ($q->fetchColumn() > 0) {
-						  		$qq = $this->db->prepare('SELECT * FROM taglist WHERE tag = :tag' );
-				 					$qq->execute([
-				 							'tag' => $tag
-				 					]);
+ 				$sql = "SELECT COUNT(*) as count , id FROM taglist WHERE tag =:tag";
+				$qq  = $this->db->prepare($sql);
+				$qq->execute(array('tag' => $tag));
+				$res = $qq->fetch(\PDO::FETCH_ASSOC);
+				$qq->closeCursor();
 
-				 					$res = $qq->fetchAll(PDO::FETCH_ASSOC);
-
-				 					return $res;
-						  }
-						  else{
-						  			return false;
-						  }
-						}
- 				
- 					return true;
+				return	$res['count'] == 1 ?   $res['id']  : false;
+						
  			}
 
- 			public function deleteTag($tag) { 
- 					$qq = $this->db->prepare('DELETE FROM taglist WHERE tag = ?');
 
- 					$qq->execute(array(
- 							$tag , 
- 							$path
- 					));
+ 			public function getAllTag($start = 0 , $limit = 7) {
 
- 					return $qq->rowCount() > 0 ?  true :false;
+ 				$qq = $this->db->prepare("SELECT tag FROM taglist LIMIT {$start}, {$limit}");
+ 				$qq->execute();
+ 				$res = $qq->fetchAll(\PDO::FETCH_ASSOC);
+
+				return $res;
+
  			}
 
- 			public function kill() {
- 					 $this->db = null;
- 					 return true;
+ 			public function getSearch($tagName) { 
+
+ 				  $qq =$this->db->prepare('SELECT * FROM filelist  INNER JOIN taglist  ON  filelist.id=taglist.id WHERE taglist.tag =:name');
+
+ 				  $qq->execute([
+ 				  			'name' => $tagName
+ 				  				]);
+ 				  $res  = $qq->fetchAll(\PDO::FETCH_ASSOC);
+
+ 				  return $res;
  			}
+
+
+ 			public function deleteTag($tag){
+
+ 					$qq = $this->db->prepare('DELETE FROM filelist WHERE id IN (Select id FROM taglist WHERE tag =:tag)');
+ 					
+ 					$qq->execute([ 
+ 						'tag' => $tag 
+ 					]);
+
+					$qr = $this->db->prepare('DELETE FROM taglist WHERE tag = :tag');
+					$qr->execute([
+						'tag' => $tag
+					]);
+ 					
+
+ 					return $qq->rowCount() > 0 ? true : false;
+ 			}
+
 
  	}

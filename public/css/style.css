@@ -144,6 +144,16 @@ fieldset[disabled] .btn-green.active {
 	tr {
 		white-space: nowrap;
 	}
+	 .table-sm td {
+	    padding: 0!important;
+	}
+
+	table tbody tr td button {
+		padding:0!important;
+	}
+	table tbody tr td button > img {
+		padding:0.3rem;
+	}
 
 	/*
 	tr:nth-child(even) , th {

@@ -65,7 +65,7 @@ namespace App\model;
 
  			public function getAllTag($start = 0 , $limit = 7) {
 
- 				$qq = $this->db->prepare("SELECT tag FROM taglist LIMIT {$start}, {$limit}");
+ 				$qq = $this->db->prepare("SELECT tag FROM taglist ORDER BY id DESC LIMIT {$start}, {$limit}");
  				$qq->execute();
  				$res = $qq->fetchAll(\PDO::FETCH_ASSOC);
 

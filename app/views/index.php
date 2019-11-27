@@ -6,13 +6,13 @@
 	   <title>HardLink Creator</title>
 
        <link rel="stylesheet" href="/public/css/bootstrap.css">
-
+	   <link rel="stylesheet" href="/public/css/style.css">
  	   <link rel="stylesheet" href="/public/css/fontawesome.min.css">
        <link rel="stylesheet" href="/public/css/iziToast.min.css">
 
 </head>
 
-<link rel="stylesheet" href="/public/css/style.css">
+
 
 <body>
 

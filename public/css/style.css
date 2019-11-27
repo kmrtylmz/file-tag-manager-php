@@ -21,6 +21,10 @@ body {
 		
 		
 	}
+input { 
+	    font-family: 'Quicksand', sans-serif!important;
+    font-weight: 700;
+ }
 .btn-green { 
   color: #FFFFFF; 
   background-color: #18E06F; 

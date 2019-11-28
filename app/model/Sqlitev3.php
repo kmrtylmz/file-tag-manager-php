@@ -1,7 +1,12 @@
 <?php 
 namespace App\model;
+
 use App\config;
 
+/**
+ * Class Sqlitev3
+ * @package App\model
+ */
  	class Sqlitev3 {
 
  		 	use config;

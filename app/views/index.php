@@ -68,8 +68,9 @@
 
 					<div class="p-2">
 							<a href="#" class="badge badges badge-secondary p-2">
-
-							<?= $value ?>
+           
+							    <?= $value ?>
+           
 							 <button type="button" data-text="<?= $value ?>" class="close" aria-label="Close">
 							 <span aria-hidden="true">&times;</span>
 						</button>
@@ -139,7 +140,6 @@
 <script src="/public/js/iziToast.min.js" type="text/javascript"></script>
 		
 		<script>
-		var counter = 0;
 		 var halfcheck = true; var quartercheck = true; var halfcheckreduce = true; var quartercheckreduce = true;
 		$("input[type='text'].creator").on("change" , function(e){
 
@@ -154,15 +154,14 @@
 				if(name === "path" && halfcheck) {
 				$procbar.animate( { width : "+="+(currentWidth*2)+"px" } , 200 );
 					halfcheck = false;
+					halfcheckreduce = true;
 				}
 				if(name === "tag" && quartercheck) {
 				$procbar.animate( { width : "+="+currentWidth+"px" } , 200 );
 				quartercheck = false;
+				quartercheckreduce=true;
 				}
 				
-			}
-			else if(check > 0 && $procbar.width() > 0) {
-
 			}
 			
 			else {
@@ -203,8 +202,8 @@
         		$.post('/search' , { search : search } ).done(function(data) {
         				if(data.trim()!== '' && data !== null && data !== "undefined" ) {	
     					var dataJsn = $.parseJSON(data);
-    					 var content = '';
-    					for (var i = 0; i < dataJsn.length; i++) {
+    					var content = '';
+    					for (let i = 0; i < dataJsn.length; i++) {
 						content +='<tr>'+
 					 	'<td><button type="button" class="btn btn-light btn-sm btn-block open" data-url="file='+ dataJsn[i].filename + '&folder=ok">' +
 					 	'<img src="/public/images/folder.ico" alt="ad"/></button></td>' + 
@@ -222,7 +221,7 @@
 						else {
 							$("tbody").html('<tr><td colspan="6" style="padding:2rem!important;">Not Created File on This Tag ! </td></tr>');
 						}
-					console.log(data);
+					//console.log(data);
         		});
 
 			});
@@ -244,14 +243,14 @@
 						var append = $(this).data("append");
 						var start = $(this).data("start");
 						var qsa = { "start" : start , "append" : append };
-						$.post('/getmore' , {  data : JSON.stringify(qsa) }).done(function(data){
-								if(data.trim()!== '' && data !== null && data !== "undefined" && data.trim()!="[]") {
+						$.post('/getMore' , {  data : JSON.stringify(qsa) }).done(function(data){
+								if(data.trim()!== '' && data !== null && data !== "undefined" && data.trim()!=="[]") {
 									var tags = $.parseJSON(data);
 									var counter = append+5;
 									$("#more").data("append" ,counter);
 									$("#more").data("start", append);
 									
-									for (var i = 0; i < tags.length; i++) {
+									for (let i = 0; i < tags.length; i++) {
 							
 							$("#tags div.p-2:last").before('<div class="p-2">'+
 								'<a href="#" class="badge badges badge-secondary p-2">'+  tags[i].tag + 
@@ -342,7 +341,7 @@
 				 	var text =$(this).text().match(/\w+/gi);
 				 		$('input[name="search"]').val(text);
 				 		$('#search').click();
-				 		console.log("ok");
+				 		//console.log("ok");
 				 	}
 				 	return;
 				 });

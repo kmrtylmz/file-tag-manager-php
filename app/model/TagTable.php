@@ -1,27 +1,41 @@
 <?php 
 namespace App\model;
-
-	class TagTable extends Sqlitev3 { 
-
+/**
+ * Class TagTable
+ * @package App\model
+ */
+	class TagTable extends Sqlitev3 {
+        /**
+         * TagTable constructor.
+         *
+         * @param mixed ...$arg
+         */
  			public function __construct(...$arg){
  					parent::__construct();
  			}
-
+        
+        /**
+         * @param string $path
+         * @param string $tag
+         * @param string $filetype
+         * @param string $filesize
+         * @param string $encoded
+         *
+         * @return bool
+         */
  			public function createTag($path , $tag , $filetype , $filesize , $encoded) { 
 
  						try {
- 							
- 					
+ 						
  						$this->db->beginTransaction();
-  					
-						
- 					    if ($db_id = $this->selectTag($tag)) {
+ 						
+ 					    if ($db_id = $this->selectTagRowId($tag)) {
  					    	  	$id = $db_id; 
  					    }
 
  					    else {
 
- 					  $rq = $this->db->prepare('INSERT INTO taglist (tag)  VALUES (:tag)');
+ 					     $rq = $this->db->prepare('INSERT INTO taglist (tag)  VALUES (:tag)');
  					    $rq->execute([ 'tag' => $tag ]);
  						$id = $this->db->lastInsertId();
 						
@@ -41,7 +55,7 @@ namespace App\model;
 
 		 					return true;
 						}
- 						 catch (Exception $e) {
+ 						 catch (\Exception $e) {
  							$this->db->rollBack();
 
  							return false;
@@ -49,8 +63,13 @@ namespace App\model;
 
  					
  			}
-
- 			public function selectTag($tag) { 
+        
+        /**
+         * @param string $tag
+         *
+         * @return bool|rowId
+         */
+ 			public function selectTagRowId($tag) {
 
  				$sql = "SELECT COUNT(*) as count , id FROM taglist WHERE tag =:tag";
 				$qq  = $this->db->prepare($sql);
@@ -61,8 +80,13 @@ namespace App\model;
 				return	$res['count'] == 1 ?   $res['id']  : false;
 						
  			}
-
-
+        
+        /**
+         * @param int $start
+         * @param int $limit
+         *
+         * @return array
+         */
  			public function getAllTag($start = 0 , $limit = 7) {
 
  				$qq = $this->db->prepare("SELECT tag FROM taglist ORDER BY id DESC LIMIT {$start}, {$limit}");
@@ -72,7 +96,12 @@ namespace App\model;
 				return $res;
 
  			}
-
+        
+        /**
+         * @param string $tagName
+         *
+         * @return array
+         */
  			public function getSearch($tagName) { 
 
  				  $qq =$this->db->prepare('SELECT * FROM filelist  INNER JOIN taglist  ON  filelist.id=taglist.id WHERE taglist.tag =:name');
@@ -84,8 +113,12 @@ namespace App\model;
 
  				  return $res;
  			}
-
-
+        
+        /**
+         * @param string $tag
+         *
+         * @return bool
+         */
  			public function deleteTag($tag){
 
  					$qq = $this->db->prepare('DELETE FROM filelist WHERE id IN (Select id FROM taglist WHERE tag =:tag)');

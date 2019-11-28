@@ -1,18 +1,34 @@
-<?php 
+<?php
 namespace App;
 
-class Router { 
 
-		 public static function changeDirectory()
+/**
+ * Class Router
+ * @package App
+ */
+class Router {
+    
+    /**
+     * @return string
+     */
+    public static function changeDirectory()
 		    {
 		        $dirname = dirname($_SERVER['SCRIPT_NAME']);
 		        $dirname = $dirname != '/' ? $dirname : null;
 		        $basename = basename($_SERVER['SCRIPT_NAME']);
-		        $request_uri = str_replace([$dirname, $basename], null, $_SERVER['REQUEST_URI']);
-		        return $request_uri;
+                $requestUrl = str_replace([$dirname, $basename], null, $_SERVER['REQUEST_URI']);
+		        return $requestUrl;
 		    }
-
-		public static function run ($url , $callback , $method = 'get') {
+    
+    /**
+     * @param string $url
+     * @param string $callback
+     * @param string $method
+     * @param array $controllerArg
+     *
+     * @throws \ReflectionException
+     */
+    public static function run ($url , $callback , $method = 'get' , $controllerArg = []) {
 
        			 $method = explode('|', strtoupper($method));
 
@@ -26,16 +42,14 @@ class Router {
 		            ];
 
 		            $url = str_replace(array_keys($patterns), array_values($patterns), $url);
-
-			 		$request_uri = self::changeDirectory();
-
-			 		$request_uri = explode("?",$request_uri)[0];
+                
+                     $requestUrl = self::changeDirectory();
+                
+                     $requestUrl = explode("?",$requestUrl)[0];
 
 			 		// or $_SERVER[PATH_INFO]
 
-			 	 if(preg_match('@^'.$url.'$@', $request_uri , $matches )) {
-					//  unset($matches[0]);
-			
+			 	 if(preg_match('@^'.$url.'$@', $requestUrl , $matches )) {
 
 	 					if(is_callable($callback)) 
 			 	 		{
@@ -45,16 +59,20 @@ class Router {
 			 	 		else {
 		
 			 	 			   $controller = explode('@', $callback);
-			 	 			   $className = explode('/', $controller[0]);
-                   			   $className = end($className);
+			 	 			   
+			 	 			   $classNameArr = explode('/', $controller[0]);
+                               $className = end($classNameArr);
+                               
+                               $className = count($classNameArr) > 1  ? str_replace('/' , '\\', $controller[0]) : $className;
+                      
                    			   $controllerFile = strtolower(__NAMESPACE__). '/controller/' . $controller[0] . '.php';
 
 						
                    			   if (file_exists($controllerFile)) {
 
-			                        		$class = new \ReflectionClass(__NAMESPACE__. '\\controller\\'.$controller[0]);
-											$args  = [];		// Object Constructor
-			                        		$instance = $class->newInstanceArgs($args);
+			                        		$class = new \ReflectionClass(__NAMESPACE__. '\\controller\\'.$className);
+											
+			                        		$instance = $class->newInstanceArgs($controllerArg);
 
 			                        		$function = $class->getMethod($controller[1]);
 

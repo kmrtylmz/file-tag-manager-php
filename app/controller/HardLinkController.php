@@ -147,8 +147,10 @@ class HardLinkController extends baseController {
 		public function create($arr) {
 
 				extract($arr);	// path, tag
+            
+                $filters = [ '"' , "?", "*" , "|" , "<" , ">" , "\\" ,":"];
     
-				$path = str_replace('"' , null , $path);
+				$path = str_replace($filters , null , $path);
 				
  				$this->hardLink->initalize($path, $tag);
 			

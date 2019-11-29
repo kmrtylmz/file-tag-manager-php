@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 require "vendor/autoload.php";
 
 use App\Router;
@@ -16,25 +17,24 @@ Router::run('/search' , 'HardLinkController@search', 'post');
 
 Router::run('/open' , 'HardLinkController@open' , 'get');
 
-Router::run('/delete' , 'HardLinkController@delete' , 'get');
+Router::run('/delete' , 'HardLinkController@fileDelete' , 'get');
 
 Router::run('/delete/tag' , 'HardLinkController@tagDelete' , 'post');
 
-Router::run('/getmore' , 'HardLinkController@getMore'  , 'post');
+Router::run('/getMore' , 'HardLinkController@getMore'  , 'post');
 
 Router::run('/errors/500', function($name) {
 	
 		$error = explode("/", $name[0]);
 
 		$error = end($error);
-
-		require "app/views/".$error.".php";
+ 		require "app/views/".$error.".php";
 
 });
 
-/*	
 
-	For Linux : 
+/*
+	For Linux Searching:
 
 	//shell_exec("ln" .$path. "{$_ENV['HOMEDRIVE']}\keywords\\".$keyword); // hardlink olusturur.
 
@@ -47,7 +47,7 @@ Router::run('/errors/500', function($name) {
 
 	find ./ -inum 2533274790487458 | head -n2  // dosyalarda inode göre aranır.
 	./abc.txt
-	./bb/mert.txt
+	./bb/childControllers.txt
 	}
 */
  		

@@ -1,7 +1,6 @@
 <?php 
 header('Refresh:10; url=/');
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,11 +16,11 @@ header('Refresh:10; url=/');
 </style>
 <body>
 
-	<h1> 500 / INTERNAL SERVER ERROR</h1>
+	<h1> 500 / INTERNAL SERVER ERROR </h1>
 	
 	 <p><i> Not Found Controller File.. ! ! </i></p>
 
-	 <a href="##" onClick="history.go(-1); return false;">Go back</a> 
+	 <a href="#" onClick="history.go(-1); return false;">Go back</a>
 
 
 </body>

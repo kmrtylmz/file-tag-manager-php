@@ -48,8 +48,11 @@ Yükleme adımlarını  Next diyerek **Run** edin. İşte bu kadar basit.<br/>
 
 #### Screenshots
 ----------
+![](https://github.com/kmrtylmz/FileTagManager-PHP/blob/master/public/screenshots/findoriginalpath.png)
+![](https://github.com/kmrtylmz/FileTagManager-PHP/blob/master/public/screenshots/searchingfile.png)
 
 
+`Show more in` [here](https://github.com/kmrtylmz/FileTagManager-PHP/tree/master/public/screenshots)
 
 
 ### Geliştirme Ortamı

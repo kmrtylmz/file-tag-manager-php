@@ -10,8 +10,8 @@
         "log_file": "debug.log"
     },
     "main_window": {
-        "title": "File Tag App",
-        "icon": "file.ico",
+        "title": "File Tag Manager",
+        "icon": "setupicon.ico",
         "default_size": [974, 640],
         "minimum_size": [974, 640],
         "maximum_size": [0, 0],
@@ -24,10 +24,10 @@
         "minimize_to_tray_message": "Simge Durumunda Açık"
     },
     "popup_window": {
-        "icon": "",
-        "fixed_title": "",
+        "icon": "setupicon.ico",
+        "fixed_title": "File Tag Manager",
         "center_relative_to_parent": true,
-        "default_size": [300, 200]
+        "default_size": [974, 640]
     },
     "web_server": {
         "listen_on": ["127.0.0.1", 0],
@@ -45,15 +45,15 @@
         "log_severity": "default",
         "cache_path": "webcache",
         "external_drag": true,
-        "external_navigation": true,
-        "reload_page_F5": false,
+        "external_navigation": false,
+        "reload_page_F5": true,
         "devtools_F12": false,
         "remote_debugging_port": 0,
         "command_line_switches": {},
         "enable_downloads": true,
         "context_menu": {
-            "enable_menu": false,
-            "navigation": true,
+            "enable_menu": true,
+            "navigation": false,
             "print": true,
             "view_source": false,
             "open_in_external_browser": false,

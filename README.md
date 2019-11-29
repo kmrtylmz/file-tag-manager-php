@@ -24,7 +24,7 @@ Yükleme adımlarını  Next diyerek **Run** edin. İşte bu kadar basit .
 Şuan için *Windows* da kullanılabilir  executable versiyon bulunmaktadır. v1.0 &hearts;
 
 ### Açıklama
-##### Nasıl Çalışır 
+#### Nasıl Çalışır 
 
 ------------
 - Dosyalarınıza istediğiniz etiketi verin.  
@@ -42,14 +42,14 @@ Yükleme adımlarını  Next diyerek **Run** edin. İşte bu kadar basit .
 - Merak etme bunun için yazılmış gizli bir komut dosyası da oluyor olacak.
 
 
-##### Kurallar
+#### Kurallar
 ----------
 
 - 1 Etikete 1 den fazla dosya tanımlanabilir. 
 - 1 Dosya 1 den fazla etikete tanımlanamaz.
 
 
-##### Screenshots
+#### Screenshots
 ----------
 
 
@@ -71,7 +71,7 @@ Ek olarak Mongoose web server kullanıldığını unutmayın .htaccess dosyasın
 
 
 
-##LICENSE 
+### LICENSE 
 
 See [ MIT ][mit]
 

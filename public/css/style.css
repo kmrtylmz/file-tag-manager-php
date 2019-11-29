@@ -1,3 +1,10 @@
+/** Author :  Mert Yılmaz
+	
+	Mail : k.mrtylmz2@gmail.com
+
+ ***/
+
+
 @import url('https://fonts.googleapis.com/css?family=Quicksand:700');
 
 /*@font-face {
@@ -11,8 +18,6 @@
       font-style: normal;
     }*/
 
-
-     
 
 body, input  {
 		background-color: #fafbfd;
@@ -156,26 +161,10 @@ fieldset[disabled] .btn-green.active {
 		padding:0.3rem;
 	}
 
-	/*
-	tr:nth-child(even) , th {
-		background-color: #F9F9F9;
-		color:grey;
-	}*/
 	td:nth-child(2) {
 		font-style: italic;
 	}
 	.bg-gg {
 		background-color: #dee2e6;
 	}
-/*
-	table tbody {
-	  border-bottom: 75px solid white;
-	}
-	tbody::after{
-			position: absolute;
-			right:25px;
-			bottom: -15px;
-			font-weight: bolder;
-			content: "Total Count : <? echo $a=1; ?>";
-	}
-	*/
+

@@ -59,9 +59,10 @@ class HardLink {
      */
  				public function checkType() {
 
- 						if(is_file($this->path) || is_executable($this->path) || is_readable($this->path) || is_writable($this->path)) {
+ 						if(is_file($this->path) || is_executable($this->path) || is_readable($this->path) || is_writable($this->path) || is_string(mime_content_type($this->path))) {
 
  								return true;
+ 								
  						}
  						
  						else

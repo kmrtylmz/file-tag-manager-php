@@ -21,7 +21,7 @@
 	<div class="row">
 		<form action="/create" class="mt-4"  method="POST">
 		    <div class="form-row pl-3">
-					<div class="custom-file col-9">
+					<div class="col-8">
 						<div class="input-group">
 					      	    <div class="input-group-prepend">
 					         		 <span class="input-group-text">/</span>
@@ -32,14 +32,14 @@
 						 </div>
 					</div>
 
-					<div class="col-2">
+					<div class="col-3">
 
 						    <input type="text" name="tag" class="form-control creator kenter" id="tag" placeholder="#tag" required>
 					</div>
 
 					<div class="col-1">
 	
-							<button type="submit"  class=" pl-5 pr-5 btn btn-green" id="Ready">Ready</button>
+							<button type="submit" title="Create Tag on This File"  class=" pl-5 pr-5 btn btn-green" id="Ready">Ready</button>
 				
 					</div>	
 			</div>	
@@ -58,7 +58,10 @@
 </div>
 		
 <div class="row pl-2 pt-4">
-	<p class="text-secondary"><u> Your Tags :</u></p>
+            <div class="col-md-12">
+                <div class="float-left"><p class="text-secondary"><u> Your Tags :</u></p></div>
+                <div class="float-right"><a href="/"><button class="btn-green" title="Refresh This Page"><i class="fas fa-sync-alt"></i></button></a></div><br>
+            </div>
 		<div class="table-wrapper-scroll-y my-custom-scrollbar" style="border:1px solid #ccc;">
 			<div class="d-flex flex-wrap mt-2" id="tags">
 					
@@ -91,7 +94,7 @@
 	<div class="col-4 input-group input-group-sm mt-4">
 			   <input type="text" class="form-control kenter" placeholder="For Search.." name="search"  aria-label="Enter Tag Name" aria-describedby="basic-addon2" x-webkit-speech>
 	 	 <div class="input-group-append">
-	  		  <button class="btn btn-green" id="search" type="button"><i class="fas fa-search"></i></button>
+	  		  <button class="btn btn-green" title="Search" id="search" type="button"><i class="fas fa-search"></i></button>
 	  	</div>
 	</div>
 </div>

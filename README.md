@@ -19,7 +19,7 @@ Yükleme adımlarını  Next diyerek **Run** edin. İşte bu kadar basit.<br/>
 
 ### Açıklama
 
-Şuan için *Windows* da kullanılabilir  executable versiyon bulunmaktadır. v1.0 &hearts;<br/>
+Şuan için *Windows* da kullanılabilir  executable versiyon bulunmaktadır. [V1.0][v1.0] &hearts;<br/>
 
 #### Nasıl Çalışır 
 
@@ -73,3 +73,4 @@ Ek olarak Mongoose web server kullanıldığını unutmayın .htaccess dosyasın
 See [ MIT ][mit]
 
 [mit]: <https://github.com/kmrtylmz/FileTagManager-PHP/blob/master/LICENSE/>
+[v1.0]: <https://github.com/kmrtylmz/FileTagManager-PHP/releases>

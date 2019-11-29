@@ -1,11 +1,9 @@
 <p align="center">
-  <img width="48" height="48" src="https://github.com/kmrtylmz/FileTagManager-PHP/blob/master/setupicon.png">
+  <img width="128" height="128" src="https://github.com/kmrtylmz/FileTagManager-PHP/blob/master/public/images/FileTagManager.svg">
 </p>
 
 # File Tag Manager 
-
 - [Download](#download)
-
 - [Açıklama](#açıklama)
   * [Nasıl Çalışır ?](#nasıl-çalışır)
   * [Kurallar](#kurallar)
@@ -15,13 +13,14 @@
 ### Download
 ------------
 
-[Burayı](http://google.com "Burayı")  tıklayarak  download edin. 
+[Burayı](http://google.com "Burayı")  tıklayarak  download edin. <br/>
+Yükleme adımlarını  Next diyerek **Run** edin. İşte bu kadar basit.<br/>
 
-Yükleme adımlarını  Next diyerek **Run** edin. İşte bu kadar basit.
-
-Şuan için *Windows* da kullanılabilir  executable versiyon bulunmaktadır. v1.0 &hearts;
 
 ### Açıklama
+
+Şuan için *Windows* da kullanılabilir  executable versiyon bulunmaktadır. v1.0 &hearts;<br/>
+
 #### Nasıl Çalışır 
 
 ------------

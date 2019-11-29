@@ -1,30 +1,30 @@
+<p align="center">
+  <img width="56" height="56" src="https://github.com/kmrtylmz/FileTagManager-PHP/blob/master/setupicon.png">
+</p>
 
-![](http://www.iconj.com/ico/p/f/pf7djphuxt.ico)
-
-# File Tag Manager :disappointed_relieved:
-
-[TOC]
-
-#H1 header
-##H2 header
-###H3 header
-####H4 header
-#####H5 header
-######H6 header
+# File Tag Manager 
+----------
 
 
+- [Download](#download)
 
-### Yükleme
+- [Açıklama](#açıklama)
+  * [Nasıl Çalışır ?](#nasıl-çalışır)
+  * [Kurallar](#kurallar)
+  * [Screenshots](#screenshots)
+- [Geliştirme Ortamı](#gelistirme-ortami)
+
+### Download
 ------------
 
-[Burayı](http://google.com "Burayı") tıklayarak  download edin. 
+[Burayı](http://google.com "Burayı")  tıklayarak  download edin. 
 
-Yükleme adımlarını  next diyerek çalıştırın edin. İşte bu kadar basit .
+Yükleme adımlarını  Next diyerek **Run** edin. İşte bu kadar basit .
 
-Şuan için Windows da kullanılabilir  executable versiyon bulunmaktadır. v1.0 &hearts;
+Şuan için *Windows* da kullanılabilir  executable versiyon bulunmaktadır. v1.0 &hearts;
 
-
-##### Nasıl Çalışır  ?
+### Açıklama
+##### Nasıl Çalışır 
 
 ------------
 - Dosyalarınıza istediğiniz etiketi verin.  
@@ -33,7 +33,7 @@ Yükleme adımlarını  next diyerek çalıştırın edin. İşte bu kadar basit
 
 - Görünce hatırlarım diyorsanız , sizin için bir liste geliyor olacak.
 
->Bunu nereye koymuştum?  dediğiniz dosyalarınızı yönetmek artık basit.
+     > Bunu nereye koymuştum? :expressionless:  dediğiniz dosyalarınızı yönetmek artık basit.
 
 - Etiket verdiğiniz dosyalarınız artık nereye giderlerse gitsinler bulabilirsiniz.
 
@@ -42,25 +42,37 @@ Yükleme adımlarını  next diyerek çalıştırın edin. İşte bu kadar basit
 - Merak etme bunun için yazılmış gizli bir komut dosyası da oluyor olacak.
 
 
-##### Kurallar ?
-------------
+##### Kurallar
+----------
+
 - 1 Etikete 1 den fazla dosya tanımlanabilir. 
 - 1 Dosya 1 den fazla etikete tanımlanamaz.
 
 
-##### Ekran Görüntüleri
-----
-
-
-Bu uygulama  cztomczak  'ın geliştirdiği phpdesktop projesiyle ile geliştirilmiştir. HTML + JS + CSS  Elektron JS ile masaüstü Gui programları yapılabiliyorsa da bu arkadaşımız buna benzer bir proje yapmıştır. CGI ile birlikte HTML + JS + CSS + PHP ile  PHP ' yi bir masaüstü GUI araçlarını kullanırcasına kullanma , executable formatte taşınabilir yapma ve bellek miktarını indirgemek için Mongoose Web Serverı , Sqllite Database , PHP temel extensionsları ve Chromium Web Browserını kullanıyor. Tabiki bunlara Mysql vb. olaylar eklenebilir. Aslında son zamanlarda bir proje yapmak tam zamanıydı ve bununla geliştirmek istedim. Kendisi ne kadar open-sourcela geliştirme yaptıysa projeyi de open-source salmıştır. Ticari kullanım için ücretsizdir. Ve yana yakıla sponsor destek aramaktadır.
+##### Screenshots
+----------
 
 
 
 
-
-Inno Db ile exe tarzında calıstıracagım :) Dosyalarının hardlinklerini oluşturup nereye giderlerse gitsinler dosyanın nerede oldugunu bulabiliyorum ve bunu calıstırabiliyorum her nerdeyse o klasörü actırıyorum.  Tag stili uygulayıp dosyaları taglarla birleştirdim. 
-
-MVC ve OOP sistemiyle kendime ait bir şablon oluşturdum :)  Çok tuhaf bir konuya el attım . Kurulum şeklinde olucak . Şimdilik Windows altında herşeyi kontrol ettim sorun yok :)  dosyaları düzenlemek kaldı. Ui tasarımına da baya bir el attım. Görüşmelerde bu projeyi download edip kendimi göstermeyi düşünüyorum? nasıl sence abi :) 
+### Geliştirme Ortamı
+----------
 
 
-Screen shotları dad düzenleyip buraya bırakacagım. Facebooktan gönderdim sonra public'e cekeceğim abi :)
+Uygulama  cztomczak'ın  phpdesktop projesi ile geliştirilmiştir. HTML + JS + CSS ile  Elektron sayesinde desktop gui uygulamaları yazılabiliyorken [Slack, Atom vb] PHP ile neden yapılmasın sorusuna alternatiftir. Bununla ilgili bir kaç atılımlar olmuş ancak şuan için döküman ve last commitlere bakarak tercihimi bundan yana kullandım. 
+
+Düşük bellek kullanımı dikkat çekiyor. Ortamda Mongoose + HTML + JS + CSS + PHP [Derlenmiş bazı extensinoslarla ] + Chromium + Sqlite Database ile  PHP' yi bir masaüstü GUI araçlarını kullanırcasına kullanma , executable formatte taşınabilir yapma ve native kullanmaya teşvik etmiş olmasıdır. Tabiki bunlara Mysql vb. olaylar eklenebilir. Ama serviceslerin başlatılması ve taşınması kasıntılı diye arkadaş yanaşmamış.
+
+Kendine ait bir setting dosyası var ve configuration edilebiliyor.  Kendisi ne kadar open-source kaynak kullanıp geliştirme yaptıysa da projeyi de open-source salmıştır. Ticari kullanım için ücretsizdir. Ve yana yakıla donate ve sponsor aramaktadır.
+
+Aslında son zamanlarda bir proje yapmak tam zamanımdı ve bununla geliştirmek istedim. Sistem kaynaklarına erişmek, OOP de kendimi denemek, MVC çatısı kurmak , Sqlite deneyimi yaşamak , Shell komutlarıyla çalışmak ve exe formatında çalışmak hedefimdi. Sanırım bunu başardım.
+
+Ek olarak Mongoose web server kullanıldığını unutmayın .htaccess dosyasının çalışmayacağını anlamanız gerekiyor. Ayrıca url uzantılarıyla ilgili değişik sürprizler sizleri bekliyor olacak :smiley:  Bir atılım yapmak istiyorsanız ilk önce wiki sayfasından başlayın derim. Ardından bu projeyi inceleyin.
+
+
+
+##LICENSE 
+
+See [ MIT ][mit]
+
+[mit]: <https://github.com/kmrtylmz/FileTagManager-PHP/blob/master/LICENSE/>

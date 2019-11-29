@@ -1,4 +1,6 @@
-
+<p align="center">
+  <img width="128" height="128" src="https://github.com/kmrtylmz/FileTagManager-PHP/blob/master/public/images/FileTagManager.svg">
+</p>
 
 # File Tag Manager 
 - [Download](#download)
@@ -7,9 +9,7 @@
   * [Kurallar](#kurallar)
   * [Screenshots](#screenshots)
 - [Geliştirme Ortamı](#geliştirme-ortamı)
-<p align="center">
-  <img width="128" height="128" src="https://github.com/kmrtylmz/FileTagManager-PHP/blob/master/public/images/FileTagManager.svg">
-</p>
+
 ### Download
 ------------
 

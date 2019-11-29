@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="48" height="48" src="https://github.com/kmrtylmz/FileTagManager-PHP/blob/master/setupicon.png">
+  <img width="128" height="128" src="https://github.com/kmrtylmz/FileTagManager-PHP/blob/master/public/images/FileTagManager.svg">
 </p>
 
 # File Tag Manager 

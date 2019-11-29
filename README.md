@@ -1,10 +1,8 @@
 <p align="center">
-  <img width="56" height="56" src="https://github.com/kmrtylmz/FileTagManager-PHP/blob/master/setupicon.png">
+  <img width="48" height="48" src="https://github.com/kmrtylmz/FileTagManager-PHP/blob/master/setupicon.png">
 </p>
 
 # File Tag Manager 
-----------
-
 
 - [Download](#download)
 
@@ -12,14 +10,14 @@
   * [Nasıl Çalışır ?](#nasıl-çalışır)
   * [Kurallar](#kurallar)
   * [Screenshots](#screenshots)
-- [Geliştirme Ortamı](#gelistirme-ortami)
+- [Geliştirme Ortamı](#geliştirme-ortamı)
 
 ### Download
 ------------
 
 [Burayı](http://google.com "Burayı")  tıklayarak  download edin. 
 
-Yükleme adımlarını  Next diyerek **Run** edin. İşte bu kadar basit .
+Yükleme adımlarını  Next diyerek **Run** edin. İşte bu kadar basit.
 
 Şuan için *Windows* da kullanılabilir  executable versiyon bulunmaktadır. v1.0 &hearts;
 
@@ -27,7 +25,7 @@ Yükleme adımlarını  Next diyerek **Run** edin. İşte bu kadar basit .
 #### Nasıl Çalışır 
 
 ------------
-- Dosyalarınıza istediğiniz etiketi verin.  
+- Dosyalarınıza istediğiniz etiketi verin. 
 
 - Artık dosya adlarını değil etiketleri aklınızda tutun. 
 
@@ -71,7 +69,7 @@ Ek olarak Mongoose web server kullanıldığını unutmayın .htaccess dosyasın
 
 
 
-### LICENSE 
+## LICENSE 
 
 See [ MIT ][mit]
 

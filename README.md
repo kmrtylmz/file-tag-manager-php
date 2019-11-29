@@ -13,7 +13,7 @@
 ### Download
 ------------
 
-[Burayı](http://google.com "Burayı")  tıklayarak  download edin. <br/>
+[In Here](http://google.com "Burayı")  tıklayarak  download edin. // Will be include <br/>
 Yükleme adımlarını  Next diyerek **Run** edin. İşte bu kadar basit.<br/>
 
 

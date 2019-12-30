@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="128" height="128" src="https://github.com/kmrtylmz/FileTagManager-PHP/blob/master/public/images/FileTagManager.svg">
+  <img width="64" height="64" src="https://github.com/kmrtylmz/FileTagManager-PHP/blob/master/public/images/FileTagManager.svg">
 </p>
 
 # File Tag Manager 
